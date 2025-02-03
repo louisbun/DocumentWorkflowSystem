@@ -12,7 +12,7 @@ namespace DocumentWorkflowSystem
         //protected ConvertBehavior convertBehavior; (Strategy pattern)
         private string documentID;
         private string title;
-        //private DocumentType type; (State Pattern)
+        //private DocumentType type;
         private string content;
         private string header;
         private string footer; 
