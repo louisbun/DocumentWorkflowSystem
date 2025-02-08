@@ -7,34 +7,71 @@ using System.Threading.Tasks;
 
 namespace DocumentWorkflowSystem
 {
-    public class User
+    internal class User : Observer
     {
-        private int userID;
         private string name;
+        private List<Subject> documents;
 
-        public int UserID 
-        { get { return userID; } 
-          set { userID = value; } 
-        }
+        public string Name { get { return name; } set { name = value; } }
+        public List<Subject> Document { get { return documents;} }
 
-        public string Name 
-        { 
-            get { return name; } 
-            set { name = value; } 
-        }
+        public User(string name)
 
-        private List<Document> documentList = new List<Document>();
-
-        public List<Document> DocumentList
-        { 
-            get { return documentList; } 
-            set {  documentList = value; }
-        }
-
-        public User(string name, int id)
         {
             this.name = name;
-            this.userID = id;
+            documents = new List<Subject>();
+        }
+
+        public void createDocument()
+        {
+            Console.Write("Enter document title");
+            string title = Console.ReadLine();
+
+            Console.Write("Enter document header");
+            string header = Console.ReadLine();
+
+            Console.Write("Enter document content");
+            string content = Console.ReadLine();
+
+            Console.Write("Enter document footer");
+            string footer = Console.ReadLine();
+
+            Document doc = new Document(this, title, header, content, footer);
+            documents.Add(doc);
+        }
+
+        public void listDocument()
+        {
+            foreach(Subject subject in documents)
+            {
+                Console.WriteLine(((Document)subject).Title);
+            }
+        }
+        public void addDocument(Subject doc)
+        {
+            if (!documents.Contains(doc))
+            {
+                documents.Add(doc);
+            }
+        }
+        public void removeDocument(Subject doc)
+        {
+            if (((Document)doc).Owner != this)
+            {
+                documents.Remove(doc);
+            }
+        }
+        public void update(Subject doc, Observer o, string action)
+        {
+            if(action == "add")
+            {
+                Console.WriteLine(Name + " has been notified: " + ((User)o).Name + " ADDED as a collaborator");
+
+            }
+            else if(action == "remove")
+            {
+                Console.WriteLine(Name + " has been notified: " + ((User)o).Name + " REMOVED as a collaborator");
+            }
         }
 
         public Document createDocument(DocumentFactory docFactory)
