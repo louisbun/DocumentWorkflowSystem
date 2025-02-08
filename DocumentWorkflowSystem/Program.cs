@@ -156,7 +156,7 @@ void userMenu(User currentUser)
                 Document currentDoc = getDoc(currentUser);
                 if(currentDoc != null)
                 {
-                    docMenu(currentDoc);
+                    docMenu(currentDoc, currentUser);
                 }
                 else
                 {
@@ -201,7 +201,7 @@ Document getDoc(User currentUser)
     return null;
 }
 //Document Menu
-void docMenu(Document currentDoc)
+void docMenu(Document currentDoc, User currentUser)
 {
     bool exit = false;
     while (!exit)
@@ -224,22 +224,35 @@ void docMenu(Document currentDoc)
         {
             case "1":
                 Console.WriteLine("Edit.");
+                editDocument(currentDoc);
                 break;
             case "2":
-                Console.WriteLine("Submit ");
+                Console.WriteLine("Submit");
+                currentDoc.notifyObserver("submit", currentUser);
                 break;
             case "3":
                 Console.WriteLine("Push back");
+                currentDoc.notifyObserver("push back", currentUser);
                 break;
             case "4":
                 Console.WriteLine("Approve");
+                currentDoc.notifyObserver("approve", currentUser);
                 break;
             case "5":
                 Console.WriteLine("Reject");
+                currentDoc.notifyObserver("reject", currentUser);
                 break;
             case "6":
                 Console.WriteLine("add collab");
-
+                User collab = login();
+                if(collab != null)
+                {
+                    currentDoc.registerObserver(collab, currentUser);
+                }
+                else
+                {
+                    Console.WriteLine("Unable to find collaborator");
+                }
                 break;
             case "7":
                 Console.WriteLine("set file type");
@@ -249,6 +262,7 @@ void docMenu(Document currentDoc)
                 break;
             case "9":
                 Console.WriteLine("Show document content");
+                showDocContent(currentDoc);
                 break;
             case "0":
                 exit = true;
@@ -258,4 +272,17 @@ void docMenu(Document currentDoc)
                 break;
         }
     }
+}
+
+void editDocument(Document currentDoc)
+{
+    Console.WriteLine("Add text to document");
+    string text = Console.ReadLine();
+    currentDoc.Content += "\n" + text;
+}
+void showDocContent(Document currentDoc)
+{
+    Console.WriteLine("Header: " + currentDoc.Header);
+    Console.WriteLine("Body Content: " + currentDoc.Content);
+    Console.WriteLine("Footer: " + currentDoc.Footer);
 }
