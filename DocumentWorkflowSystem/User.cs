@@ -80,15 +80,5 @@ namespace DocumentWorkflowSystem
             return doc;
         }
 
-        public void addDocument(Document docs)
-        {
-            documentList.Add(docs);
-        }
-
-        public void removeDocument(Document docs)
-        {
-            documentList.Remove(docs);
-        }
-
     }
 }
