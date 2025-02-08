@@ -24,20 +24,48 @@ namespace DocumentWorkflowSystem
 
         public void createDocument()
         {
-            Console.Write("Enter document title");
-            string title = Console.ReadLine();
+            Console.WriteLine("Document Types");
+            Console.WriteLine("1. Grant Proposal");
+            Console.WriteLine("2. Technical Report");
+            int docNo;
+            bool isValidInput = false;
 
-            Console.Write("Enter document header");
-            string header = Console.ReadLine();
+            while (!isValidInput)
+            {
+                Console.WriteLine("Enter document type: ");
+                string input = Console.ReadLine();
 
-            Console.Write("Enter document content");
-            string content = Console.ReadLine();
+                if (int.TryParse(input, out docNo))
+                {
+                    // if the integer is either 1 or 2, valid
+                    if (docNo == 1 || docNo == 2)
+                    {
+                        isValidInput = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please enter either 1 or 2.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid number.");
+                }
+                Document doc;
 
-            Console.Write("Enter document footer");
-            string footer = Console.ReadLine();
+                if (docNo == 1)
+                {
+                    GrantProposalFactory grantProposalFactory = new GrantProposalFactory();
+                    doc = createDocument(grantProposalFactory);
+                }
 
-            Document doc = new Document(this, title, header, content, footer);
-            documents.Add(doc);
+                else
+                {
+                    TechnicalReportFactory technicalReportFactory = new TechnicalReportFactory();
+                    doc = createDocument(technicalReportFactory);
+                }
+                documents.Add(doc);
+            }
         }
 
         public void listDocument()
@@ -79,6 +107,5 @@ namespace DocumentWorkflowSystem
             Document doc = docFactory.createDocument(this);
             return doc;
         }
-
     }
 }
