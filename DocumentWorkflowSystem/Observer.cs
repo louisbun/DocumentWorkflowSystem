@@ -8,6 +8,6 @@ namespace DocumentWorkflowSystem
 {
     interface Observer
     {
-        void update(Subject sub);
+        void update(Subject sub, Observer o, string action);
     }
 }

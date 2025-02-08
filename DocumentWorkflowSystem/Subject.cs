@@ -10,6 +10,6 @@ namespace DocumentWorkflowSystem
     {
         void registerObserver(Observer o);
         void removeObserver(Observer o);
-        void notifyObserver();
+        void notifyObserver(string action,Observer o);
     }
 }
