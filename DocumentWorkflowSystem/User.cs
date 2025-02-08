@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentWorkflowSystem.Factory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace DocumentWorkflowSystem
         public List<Subject> Document { get { return documents;} }
 
         public User(string name)
+
         {
             this.name = name;
             documents = new List<Subject>();
@@ -71,5 +73,22 @@ namespace DocumentWorkflowSystem
                 Console.WriteLine(Name + " has been notified: " + ((User)o).Name + " REMOVED as a collaborator");
             }
         }
+
+        public Document createDocument(DocumentFactory docFactory)
+        {
+            Document doc = docFactory.createDocument(this);
+            return doc;
+        }
+
+        public void addDocument(Document docs)
+        {
+            documentList.Add(docs);
+        }
+
+        public void removeDocument(Document docs)
+        {
+            documentList.Remove(docs);
+        }
+
     }
 }
