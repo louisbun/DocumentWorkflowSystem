@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DocumentWorkflowSystem.Factory
 {
-    public abstract class DocumentFactory
+    internal abstract class DocumentFactory
     {
         public abstract Document createDocument(User user);
     }

@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using DocumentWorkflowSystem;
+using DocumentWorkflowSystem.Factory;
 using System.ComponentModel.Design;
 Console.WriteLine("Hello, World!");
 Console.WriteLine("Hello, World!");
@@ -14,6 +15,9 @@ Console.WriteLine("Hello, World!");
 List<User> users = new List<User>();
 List<Document> documents = new List<Document>();
 
+GrantProposalFactory grantProposalFactory = new GrantProposalFactory();
+TechnicalReportFactory technicalReportFactory = new TechnicalReportFactory();
+
 //Initialise users
 User joseph = new User("Joseph");
 User yunze = new User("Yun Ze");
@@ -27,8 +31,11 @@ users.Add(zhenkang);
 users.Add(louis);
 
 //Initalise document
-Document josephDoc = new Document(joseph,"JosephDoc","header","myContent","footer");
-Document anotherDoc = new Document(yunze, "Doc", "header", "myContent", "footer");
+Document josephDoc = grantProposalFactory.createDocument(joseph);
+Document anotherDoc = grantProposalFactory.createDocument(yunze);
+Document nextDoc = technicalReportFactory.createDocument(zhenkang);
+
+
 //Adding document to User 
 joseph.addDocument(josephDoc);
 yunze.addDocument(anotherDoc);

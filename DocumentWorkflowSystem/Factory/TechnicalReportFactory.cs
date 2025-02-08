@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace DocumentWorkflowSystem.Factory
 {
-    public class TechnicalReportFactory : DocumentFactory
+    internal class TechnicalReportFactory : DocumentFactory
     {
         public override Document createDocument(User user)
         {
-            Document docs = new TechicalReport(user);
-            docs.createDocument();
-            return docs;
+            return new TechicalReport(user);
         }
     }
 }
