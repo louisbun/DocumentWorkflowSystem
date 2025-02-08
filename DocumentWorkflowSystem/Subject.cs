@@ -8,7 +8,7 @@ namespace DocumentWorkflowSystem
 {
     interface Subject
     {
-        void registerObserver(Observer o);
+        void registerObserver(Observer o,User u);
         void removeObserver(Observer o);
         void notifyObserver(string action,Observer o);
     }

@@ -22,6 +22,9 @@ namespace DocumentWorkflowSystem
 
         public User Owner { get { return owner; } }
         public string Title { get { return title; } }
+        public string Content { get { return content; }set { content = value; } }
+        public string Header { get { return header; } }
+        public string Footer { get { return footer; } }
 
         public Document(User owner, string title, string header, string content, string footer)
         {
@@ -31,9 +34,11 @@ namespace DocumentWorkflowSystem
             this.content = content;
             this.footer = footer;
             observers = new List<Observer>();
+
+            observers.Add(owner);
         }
 
-        public void registerObserver(Observer o)
+        public void registerObserver(Observer o,User u)
         {
             if(observers.Contains(o))
             {
@@ -41,7 +46,7 @@ namespace DocumentWorkflowSystem
             }
             else
             {
-                if (o.Equals(owner))
+                if (u.Equals(owner))
                 {
                     observers.Add(o);
                     notifyObserver("add",o);
@@ -67,9 +72,16 @@ namespace DocumentWorkflowSystem
         }
         public void notifyObserver(string action, Observer observe)
         {
-            foreach (Observer o in observers)
+            if(action == "add")
             {
-                o.update(this, observe,action);
+                observe.update(this, observe, action);
+            }
+            else
+            {
+                foreach (Observer o in observers)
+                {
+                    o.update(this, observe, action);
+                }
             }
         }
     }
