@@ -18,7 +18,14 @@ namespace DocumentWorkflowSystem
         //private DocumentType type;
         private string content;
         private string header;
-        private string footer; 
+        private string footer;
+
+        // references to DocumentState (State)
+        private DocumentState draftState;
+        private DocumentState underReviewState;
+        private DocumentState rejectedState;
+        private DocumentState approvedState;
+        private DocumentState state;
 
         public User Owner { get { return owner; } }
         public string Title { get { return title; } }
@@ -26,6 +33,28 @@ namespace DocumentWorkflowSystem
         public string Header { get { return header; } }
         public string Footer { get { return footer; } }
 
+        // getter and setter for state attributes
+        public DocumentState DraftState { get { return draftState; } set { draftState = value; } }
+        public DocumentState UnderReviewState { get { return underReviewState; } set { underReviewState = value; } }
+        public DocumentState RejectedState
+        {
+            get { return rejectedState; } set { rejectedState = value; }
+        }
+        public DocumentState ApprovedState
+        {
+            get { return approvedState; } set { approvedState = value; }
+        }
+        public DocumentState State
+        {
+            get { return state; }
+        }
+        public void setState(DocumentState state)
+        {
+            this.state = state;
+        }
+
+
+        // constructor
         public Document(User owner, string title, string header, string content, string footer)
         {
             this.owner = owner;
@@ -36,6 +65,13 @@ namespace DocumentWorkflowSystem
             observers = new List<Observer>();
 
             observers.Add(owner);
+
+            // creating the DocumentState objects
+            draftState = new DraftState(this);
+            underReviewState = new UnderReviewState(this);
+            rejectedState = new RejectedState(this);
+            approvedState = new ApprovedState(this);
+            state = draftState;
         }
 
         public void registerObserver(Observer o,User u)
