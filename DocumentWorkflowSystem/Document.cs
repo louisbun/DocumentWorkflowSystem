@@ -27,11 +27,35 @@ namespace DocumentWorkflowSystem
         private DocumentState approvedState;
         private DocumentState state;
 
+        protected ConvertBehaviour convertBehaviour;
+
         public User Owner { get { return owner; } }
         public string Title { get { return title; } }
         public string Content { get { return content; }set { content = value; } }
         public string Header { get { return header; } }
         public string Footer { get { return footer; } }
+
+        // For conversion
+        public void SetConvertBehaviour(ConvertBehaviour behaviour)
+        {
+            this.convertBehaviour = behaviour;
+        }
+        public ConvertBehaviour GetConvertBehaviour()
+        {
+            return this.convertBehaviour;
+        }
+
+        public void PerformConvert()
+        {
+            if (convertBehaviour != null)
+            {
+                convertBehaviour.convert();
+            }
+            else
+            {
+                Console.WriteLine("No conversion behaviour set.");
+            }
+        }
 
         // getter and setter for state attributes
         public DocumentState DraftState { get { return draftState; } set { draftState = value; } }

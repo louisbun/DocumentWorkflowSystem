@@ -255,10 +255,12 @@ void docMenu(Document currentDoc, User currentUser)
                 }
                 break;
             case "7":
-                Console.WriteLine("set file type");
+                Console.WriteLine("Set file type");
+                SetConversionType(currentDoc);
                 break;
             case "8":
                 Console.WriteLine("produce converted file");
+                printConversionDetails(currentDoc);
                 break;
             case "9":
                 Console.WriteLine("Show document content");
@@ -285,4 +287,67 @@ void showDocContent(Document currentDoc)
     Console.WriteLine("Header: " + currentDoc.Header);
     Console.WriteLine("Body Content: " + currentDoc.Content);
     Console.WriteLine("Footer: " + currentDoc.Footer);
+}
+
+
+// Set conversion type for the document
+void setConversionType(Document document)
+{
+    Console.WriteLine("Choose conversion format:");
+    Console.WriteLine("1. Word");
+    Console.WriteLine("2. PDF");
+    string choice = Console.ReadLine();
+
+    ConvertBehaviour converter = null;
+    switch (choice)
+    {
+        case "1":
+            converter = new WordConvert();  // WordConvert class
+            break;
+        case "2":
+            converter = new PDFConvert();   // PDFConvert class
+            break;
+        default:
+            Console.WriteLine("Invalid choice.");
+            return;
+    }
+
+    Console.WriteLine("Do you want to add a watermark? (yes/no)");
+    string watermarkChoice = Console.ReadLine();
+
+    if (watermarkChoice.ToLower() == "yes")
+    {
+        Console.Write("Enter watermark text: ");
+        string watermarkText = Console.ReadLine();
+        converter = new WatermarkDecorator(converter, watermarkText);  // Add watermark decorator
+    }
+
+    document.SetConvertBehaviour(converter);  // Set the conversion behaviour for the document
+    Console.WriteLine("Conversion type set successfully!");
+}
+
+
+// Print conversion details
+void printConversionDetails(Document document)
+{
+    if (document.GetConvertBehaviour() != null)
+    {
+        // Output the conversion type as "PDF" or "Word"
+        string conversionType = document.GetConvertBehaviour() is PDFConvert ? "PDF" : "Word";
+        Console.WriteLine($"Current conversion type: {conversionType}");
+
+        // Check if a watermark decorator is applied
+        if (document.GetConvertBehaviour() is WatermarkDecorator watermarkDecorator)
+        {
+            Console.WriteLine($"Watermark applied: {watermarkDecorator.WaterMarkText}");
+        }
+        else
+        {
+            Console.WriteLine("No watermark applied.");
+        }
+    }
+    else
+    {
+        Console.WriteLine("No conversion type set for this document.");
+    }
 }
