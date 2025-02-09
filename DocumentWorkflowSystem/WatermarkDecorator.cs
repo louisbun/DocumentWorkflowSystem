@@ -23,7 +23,7 @@ namespace DocumentWorkflowSystem
             AddWatermark();
         }
 
-        private void AddWatermark()
+        public void AddWatermark()
         {
             Console.WriteLine($"Adding watermark: {watermarkText}");
         }
