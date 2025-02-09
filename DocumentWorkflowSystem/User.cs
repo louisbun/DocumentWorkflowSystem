@@ -1,4 +1,5 @@
 ﻿using DocumentWorkflowSystem.Factory;
+using DocumentWorkflowSystem.ObserverDesignPattern;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,52 +25,21 @@ namespace DocumentWorkflowSystem
             documents = new List<Subject>();
         }
 
-        public void createDocument()
+        public Document createDocument(string type, string title)
         {
-            Console.WriteLine("Document Types");
-            Console.WriteLine("1. Grant Proposal");
-            Console.WriteLine("2. Technical Report");
-            int docNo;
-            bool isValidInput = false;
             Document doc;
-            while (!isValidInput)
+            if (type == "Grant")
             {
-                Console.WriteLine("Enter document type: ");
-                string? input = Console.ReadLine();
-
-                if (int.TryParse(input, out docNo))
-                {
-                    // if the integer is either 1 or 2, valid
-                    if (docNo == 1 || docNo == 2)
-                    {
-                        isValidInput = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Please enter either 1 or 2.");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input. Please enter a valid number.");
-                }
-                Console.WriteLine("Enter title for your document: ");
-                string? title = Console.ReadLine();
-                if (docNo == 1)
-                {
-                    GrantProposalFactory grantProposalFactory = new GrantProposalFactory();
-                    doc = grantProposalFactory.createDocument(this, title);
-                }
-
-                else
-                {
-                    TechnicalReportFactory technicalReportFactory = new TechnicalReportFactory();
-                    doc = technicalReportFactory.createDocument(this, title);
-
-                }
-                documents.Add(doc);
+                GrantProposalFactory grantProposalFactory = new GrantProposalFactory();
+                doc = grantProposalFactory.createDocument(this, title);
             }
-            
+            else
+            {
+                TechnicalReportFactory technicalReportFactory = new TechnicalReportFactory();
+                doc = technicalReportFactory.createDocument(this, title);
+            }
+            documents.Add(doc);
+            return doc;
         }
 
         public void listDocument()

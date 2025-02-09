@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentWorkflowSystem", "DocumentWorkflowSystem\DocumentWorkflowSystem.csproj", "{C8D612B5-3634-4D89-9D53-D754B4EDF501}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentWorkflowSystem", "DocumentWorkflowSystem\DocumentWorkflowSystem.csproj", "{C8D612B5-3634-4D89-9D53-D754B4EDF501}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +18,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A05286F8-344D-40AD-B752-944107B1DC34}
 	EndGlobalSection
 EndGlobal

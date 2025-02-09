@@ -143,9 +143,10 @@ void userMenu(User currentUser)
         switch (input)
         {
             case "1":
+
                 Console.WriteLine("\nCreating new document...\n");
-                currentUser.createDocument();
-                
+                docTypeMenu(currentUser);
+               
                 break;
             case "2":
                 Console.WriteLine("\nEditing document...\n ");
@@ -175,6 +176,41 @@ void userMenu(User currentUser)
     }
 }
 
+void docTypeMenu(User currentUser)
+{
+    Console.WriteLine("Document Types");
+    Console.WriteLine("1. Grant Proposal");
+    Console.WriteLine("2. Technical Report");
+    bool exit = false;
+    while (!exit)
+    {
+        Console.WriteLine("Enter title for your document: ");
+        string title = Console.ReadLine();
+
+        Console.WriteLine("Enter document type: ");
+        string input = Console.ReadLine();
+        Console.WriteLine(input);
+        switch (input)
+        {
+            case "1":
+                Document grantDoc = currentUser.createDocument("Grant",title);
+                documents.Add(grantDoc);
+                Console.WriteLine("Grant Proposal document created.");
+                exit = true;
+                break;
+            case "2":
+                Document technicalDoc = currentUser.createDocument("Technical",title);
+                documents.Add(technicalDoc);
+                Console.WriteLine("Technical Report document created.");
+                exit = true;
+                break;
+            default:
+                Console.WriteLine("Invalid choice! Please enter a number between 1 and 2.");
+                break;
+        }
+    }
+
+}
 
 //Get Document
 Document getDoc(User currentUser)
