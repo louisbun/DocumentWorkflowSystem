@@ -312,8 +312,9 @@ void showDocContent(Document currentDoc)
 void setConversionType(Document document)
 {
     Console.WriteLine("Choose conversion format:");
-    Console.WriteLine("1. Word");
-    Console.WriteLine("2. PDF");
+    Console.WriteLine("- Word");
+    Console.WriteLine("- PDF");
+    Console.WriteLine("Enter a choice: ");
     string? choice = Console.ReadLine();
 
     ConvertBehaviour converter = null;
