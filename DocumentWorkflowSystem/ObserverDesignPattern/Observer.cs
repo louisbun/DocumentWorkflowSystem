@@ -8,6 +8,8 @@ namespace DocumentWorkflowSystem.ObserverDesignPattern
 {
     interface Observer
     {
-        void update(Subject sub, Observer o, string action);
+        void update(Document doc, Observer o);
+        void update(Document doc, string action);
+
     }
 }

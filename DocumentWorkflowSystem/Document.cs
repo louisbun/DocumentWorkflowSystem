@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using DocumentWorkflowSystem.ObserverDesignPattern;
+using static System.Collections.Specialized.BitVector32;
 
 namespace DocumentWorkflowSystem
 {
@@ -99,7 +100,7 @@ namespace DocumentWorkflowSystem
             state = draftState;
         }
 
-        public void registerObserver(Observer o,User u)
+        public void registerObserver(Observer o)
         {
             if(observers.Contains(o))
             {
@@ -107,15 +108,8 @@ namespace DocumentWorkflowSystem
             }
             else
             {
-                if (u.Equals(owner))
-                {
-                    observers.Add(o);
-                    notifyObserver("add",o);
-                }
-                else
-                {
-                    Console.WriteLine("Only owner of document can add collaborators");
-                }
+                observers.Add(o);
+                notifyObserver(o);
             }
         }
 
@@ -131,18 +125,16 @@ namespace DocumentWorkflowSystem
             }
             
         }
-        public void notifyObserver(string action, Observer observe)
+        public void notifyObserver(Observer observe)
         {
-            if(action == "add")
+            observe.update(this, observe);
+        }
+
+        public void notifyObserver(string action)
+        {
+            foreach (Observer o in observers)
             {
-                observe.update(this, observe, action);
-            }
-            else
-            {
-                foreach (Observer o in observers)
-                {
-                    o.update(this, observe, action);
-                }
+                o.update(this,action);
             }
         }
 

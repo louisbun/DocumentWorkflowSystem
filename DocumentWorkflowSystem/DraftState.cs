@@ -20,12 +20,12 @@ namespace DocumentWorkflowSystem
         {
             Console.WriteLine("Sending this document to be reviewed.");
             // assign approver if empty
-            
+
             // lock the document to not allow editing
             // change the state to UnderReviewState
 
             // notify all the observers that document is under review
-            
+            myDocument.notifyObserver("submit");
         }
 
         public void reject()

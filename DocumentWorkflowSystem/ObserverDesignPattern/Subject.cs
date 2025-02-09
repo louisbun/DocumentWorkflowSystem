@@ -8,8 +8,9 @@ namespace DocumentWorkflowSystem.ObserverDesignPattern
 {
     interface Subject
     {
-        void registerObserver(Observer o, User u);
+        void registerObserver(Observer o);
         void removeObserver(Observer o);
-        void notifyObserver(string action, Observer o);
+        void notifyObserver(Observer o);
+        void notifyObserver(string action);
     }
 }
