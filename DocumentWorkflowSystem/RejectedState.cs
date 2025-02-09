@@ -14,7 +14,7 @@ namespace DocumentWorkflowSystem
             this.myDocument = document;
         }
 
-        public void ready()
+        public void ready(User approver)
         {
             // Guard Condition [only if document has been edited] 
             // change state to UnderReviewState
@@ -22,6 +22,7 @@ namespace DocumentWorkflowSystem
             // lock document for editing
 
             // notify all observers that document is under review
+
         }
 
         public void reject()

@@ -14,7 +14,7 @@ namespace DocumentWorkflowSystem
             myDocument = document;
         }
 
-        public void ready()
+        public void ready(User approver)
         {
             Console.WriteLine("This document is already under review.");
         }
@@ -26,15 +26,18 @@ namespace DocumentWorkflowSystem
             // change state to RejectedState
 
             // notify all obersvers that document is rejected
+
         }
 
         public void pushBack()
         {
             // keep approver
             // add comment
+            // unlockDocument so that it can be edited
             // change state back to DraftState
 
             // notify all oberservs that document is pushed back
+
         }
 
         public void approve()
@@ -42,6 +45,7 @@ namespace DocumentWorkflowSystem
             // change state to ApprovedState
 
             // notify all observers that document is approved
+
         }
     }
 }
