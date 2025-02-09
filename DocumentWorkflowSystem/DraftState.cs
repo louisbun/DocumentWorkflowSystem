@@ -16,10 +16,10 @@ namespace DocumentWorkflowSystem
             myDocument = document;
         }
 
-        public void ready(User approver)
+        public void submit(User approver)
         {
             
-            // assign approver if empty
+            // assign approver if empty [if approver is not a collaborator]
             if (myDocument.assignApprover(approver))
             {
                 // lock the document to not allow editing

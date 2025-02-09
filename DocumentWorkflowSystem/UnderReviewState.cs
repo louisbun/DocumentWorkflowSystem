@@ -14,7 +14,7 @@ namespace DocumentWorkflowSystem
             myDocument = document;
         }
 
-        public void ready(User approver)
+        public void submit(User approver)
         {
             Console.WriteLine("This document is already under review.");
         }
@@ -22,8 +22,17 @@ namespace DocumentWorkflowSystem
         public void reject()
         {
             // unassign the approver 
+            myDocument.unassignApprover();
+
+            //unlock Document so that it can be edited
+            myDocument.unlockDocument();
+
             // add reason
+            string? comment = myDocument.addRejectedReason();
+
             // change state to RejectedState
+            Console.Write($"Rejecting document [{myDocument.Title}] - Reason: " +  comment);
+            myDocument.setState(myDocument.RejectedState);
 
             // notify all obersvers that document is rejected
             myDocument.notifyObserver("reject");
@@ -31,10 +40,15 @@ namespace DocumentWorkflowSystem
 
         public void pushBack()
         {
-            // keep approver
             // add comment
+            string? comment = myDocument.addPushBackReason();
+
             // unlockDocument so that it can be edited
+            myDocument.unlockDocument();
+
             // change state back to DraftState
+            Console.WriteLine($"Pushing document [{myDocument.Title}] back" + " - Reason: " + comment);
+            myDocument.setState(myDocument.DraftState);
 
             // notify all oberservs that document is pushed back
             myDocument.notifyObserver("push back");
@@ -43,6 +57,8 @@ namespace DocumentWorkflowSystem
         public void approve()
         {
             // change state to ApprovedState
+            Console.WriteLine($"Approving document [{myDocument.Title}]");
+            myDocument.setState(myDocument.ApprovedState);
 
             // notify all observers that document is approved
             myDocument.notifyObserver("approve");

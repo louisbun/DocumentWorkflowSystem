@@ -185,10 +185,10 @@ void docTypeMenu(User currentUser)
     while (!exit)
     {
         Console.WriteLine("Enter title for your document: ");
-        string title = Console.ReadLine();
+        string? title = Console.ReadLine();
 
         Console.WriteLine("Enter document type: ");
-        string input = Console.ReadLine();
+        string? input = Console.ReadLine();
         switch (input)
         {
             case "1":
@@ -264,7 +264,8 @@ void docMenu(Document currentDoc, User currentUser)
                 }
                 else
                 {
-                    Console.WriteLine("This document cannot be edited currently.");
+                    Console.WriteLine("This document cannot be " +
+                        "edited currently - it is under review.");
                 }
 
                 break;
@@ -273,11 +274,12 @@ void docMenu(Document currentDoc, User currentUser)
                 User? approver;
                 if (currentDoc.Approver == null)
                 {
-                    Console.WriteLine("Enter approver.");
+                    Console.WriteLine("Assign approver.");
                     approver = login();
                     if (approver != null)
                     {
-                        currentDoc.ready(approver);
+                        currentDoc.submit(approver);
+                        approver.addDocument(currentDoc); // adding documents to the approver
                     }
                     else
                     {
@@ -286,27 +288,47 @@ void docMenu(Document currentDoc, User currentUser)
                 }
                 else
                 {
-                    currentDoc.ready(currentDoc.Approver);
+                    currentDoc.submit(currentDoc.Approver);
                 }
-                
-                
-              
+
                 break;
             case "3":
-                Console.WriteLine("Push back");
+                if (currentUser == currentDoc.Approver)
+                {
+                    currentDoc.pushBack();
+                }
+                else
+                {
+                    Console.WriteLine("Only the approver can push back.");
+                }
                 
                 break;
             case "4":
-                Console.WriteLine("Approve");
-                
+                if (currentUser == currentDoc.Approver)
+                {
+                    currentDoc.approve();
+                }
+                else
+                {
+                    Console.WriteLine("Only the approver can approve document.");
+                }
+
                 break;
             case "5":
-                Console.WriteLine("Reject");
-                
+                if (currentUser == currentDoc.Approver)
+                {
+                    currentDoc.reject();
+                    currentDoc.Edited = false;
+                }
+                else
+                {
+                    Console.WriteLine("Only the approver can reject document.");
+                }
+
                 break;
             case "6":
                 Console.WriteLine("add collab");
-                User collab = login();
+                User? collab = login();
                 if(collab != null)
                 {
                     if(currentDoc.Owner == currentUser)
@@ -350,6 +372,8 @@ void editDocument(Document currentDoc)
     Console.WriteLine("Add text to document");
     string? text = Console.ReadLine();
     currentDoc.Content += "\n" + text;
+
+    currentDoc.Edited = true;
 }
 void showDocContent(Document currentDoc)
 {

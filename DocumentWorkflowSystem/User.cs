@@ -51,6 +51,9 @@ namespace DocumentWorkflowSystem
                 {
                     Console.WriteLine(subject.Title + "(Owner)");
                 }
+                else if(subject.Approver == this){
+                    Console.WriteLine(subject.Title + "(Approver)");
+                }
                 else
                 {
                     Console.WriteLine(subject.Title + "(Collaborator)");

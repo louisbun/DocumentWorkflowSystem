@@ -14,15 +14,37 @@ namespace DocumentWorkflowSystem
             this.myDocument = document;
         }
 
-        public void ready(User approver)
+        public void submit(User approver)
         {
             // Guard Condition [only if document has been edited] 
-            // change state to UnderReviewState
-            // assign approver
-            // lock document for editing
+            if (myDocument.Edited)
+            {
+                if (myDocument.assignApprover(approver))
+                {
+                    // lock the document to not allow editing
+                    myDocument.lockDocument();
 
-            // notify all observers that document is under review
-            myDocument.notifyObserver("submit");
+                    // change the state to UnderReviewState
+                    Console.WriteLine("Sending this document to be reviewed...");
+                    myDocument.setState(myDocument.UnderReviewState);
+
+                    // notify all the observers that document is under review
+                    myDocument.notifyObserver("submit");
+
+                }
+                else
+                {
+                    Console.WriteLine("Please assign an approver who is not a " +
+                        "collaborator of this document.");
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Document has already been rejected. " +
+                    "it has to be edited first before re-submitting.");
+                Console.WriteLine();
+            }
 
         }
 
@@ -33,12 +55,12 @@ namespace DocumentWorkflowSystem
 
         public void pushBack()
         {
-            Console.WriteLine("This document has already been rejected.");
+            Console.WriteLine("This document can't be push back - it has already been rejected.");
         }
 
         public void approve()
         {
-            Console.WriteLine("This document has already been rejected.");
+            Console.WriteLine("This document can't be approved - it has already been rejected.");
         }
     }
 }
