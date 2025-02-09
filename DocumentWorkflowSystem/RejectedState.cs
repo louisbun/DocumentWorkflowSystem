@@ -22,6 +22,7 @@ namespace DocumentWorkflowSystem
             // lock document for editing
 
             // notify all observers that document is under review
+            myDocument.notifyObserver("submit");
 
         }
 

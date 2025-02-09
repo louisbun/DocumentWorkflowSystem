@@ -26,7 +26,7 @@ namespace DocumentWorkflowSystem
             // change state to RejectedState
 
             // notify all obersvers that document is rejected
-
+            myDocument.notifyObserver("reject");
         }
 
         public void pushBack()
@@ -37,7 +37,7 @@ namespace DocumentWorkflowSystem
             // change state back to DraftState
 
             // notify all oberservs that document is pushed back
-
+            myDocument.notifyObserver("push back");
         }
 
         public void approve()
@@ -45,6 +45,7 @@ namespace DocumentWorkflowSystem
             // change state to ApprovedState
 
             // notify all observers that document is approved
+            myDocument.notifyObserver("approve");
 
         }
     }

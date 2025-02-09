@@ -30,6 +30,7 @@ namespace DocumentWorkflowSystem
                 myDocument.setState(myDocument.UnderReviewState);
 
                 // notify all the observers that document is under review
+                myDocument.notifyObserver("submit");
 
             }
             else
