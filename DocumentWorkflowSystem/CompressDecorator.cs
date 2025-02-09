@@ -23,7 +23,7 @@ namespace DocumentWorkflowSystem
             CompressDocument();
         }
 
-        private void CompressDocument()
+        public void CompressDocument()
         {
             Console.WriteLine("Compressing document before conversion...");
         }

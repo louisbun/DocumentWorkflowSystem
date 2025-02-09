@@ -24,7 +24,7 @@ namespace DocumentWorkflowSystem
             EncryptDocument();
         }
 
-        private void EncryptDocument()
+        public void EncryptDocument()
         {
             Console.WriteLine($"Encrypting document with key: {encrypt}");
         }
