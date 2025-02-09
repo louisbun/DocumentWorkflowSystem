@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DocumentWorkflowSystem
 {
-    public interface ConvertBehaviour
+    internal interface ConvertBehaviour
     {
-        void convert();
+        void convert(Document document);
     }
 }

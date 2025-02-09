@@ -31,7 +31,7 @@ namespace DocumentWorkflowSystem
 
 
         // yunze stuff (strategy)
-        protected ConvertBehaviour convertBehaviour;
+        private BaseConverter converter;
 
         public User Owner { get { return owner; } }
         public string Title { get { return title; } }
@@ -41,26 +41,28 @@ namespace DocumentWorkflowSystem
         public User? Approver { get { return approver; } set { approver = value; } }
 
         // For conversion
-        public void SetConvertBehaviour(ConvertBehaviour behaviour)
+        public void SetConverter(BaseConverter newConverter)
         {
-            this.convertBehaviour = behaviour;
+            converter = newConverter;
         }
-        public ConvertBehaviour GetConvertBehaviour()
+
+        public BaseConverter getConverter()
         {
-            return this.convertBehaviour;
+            return this.converter;
         }
 
         public void PerformConvert()
         {
-            if (convertBehaviour != null)
+            if (converter != null)
             {
-                convertBehaviour.convert();
+                converter.convert(this);
             }
             else
             {
                 Console.WriteLine("No conversion behaviour set.");
             }
         }
+       
 
         // getter and setter for state attributes
         public DocumentState DraftState { get { return draftState; } set { draftState = value; } }
