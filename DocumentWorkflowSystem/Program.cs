@@ -189,7 +189,6 @@ void docTypeMenu(User currentUser)
 
         Console.WriteLine("Enter document type: ");
         string input = Console.ReadLine();
-        Console.WriteLine(input);
         switch (input)
         {
             case "1":
@@ -278,26 +277,33 @@ void docMenu(Document currentDoc, User currentUser)
                 }
                 
                 
-                currentDoc.notifyObserver("submit", currentUser);
+              
                 break;
             case "3":
                 Console.WriteLine("Push back");
-                currentDoc.notifyObserver("push back", currentUser);
+                
                 break;
             case "4":
                 Console.WriteLine("Approve");
-                currentDoc.notifyObserver("approve", currentUser);
+                
                 break;
             case "5":
                 Console.WriteLine("Reject");
-                currentDoc.notifyObserver("reject", currentUser);
+                
                 break;
             case "6":
                 Console.WriteLine("add collab");
                 User collab = login();
                 if(collab != null)
                 {
-                    currentDoc.registerObserver(collab, currentUser);
+                    if(currentDoc.Owner == currentUser)
+                    {
+                        currentDoc.registerObserver(collab);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Only owner can add collaborator!");
+                    }
                 }
                 else
                 {

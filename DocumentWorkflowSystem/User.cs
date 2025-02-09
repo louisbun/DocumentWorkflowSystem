@@ -7,22 +7,23 @@ using System.Reflection.Metadata;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 namespace DocumentWorkflowSystem
 {
     internal class User : Observer
     {
         private string name;
-        private List<Subject> documents;
+        private List<Document> documents;
 
         public string Name { get { return name; } set { name = value; } }
-        public List<Subject> Document { get { return documents;} }
+        public List<Document> Document { get { return documents;} }
 
         public User(string name)
 
         {
             this.name = name;
-            documents = new List<Subject>();
+            documents = new List<Document>();
         }
 
         public Document createDocument(string type, string title)
@@ -44,60 +45,54 @@ namespace DocumentWorkflowSystem
 
         public void listDocument()
         {
-            foreach(Subject subject in documents)
+            foreach(Document subject in documents)
             {
-                if(((Document)subject).Owner == this)
+                if(subject.Owner == this)
                 {
-                    Console.WriteLine(((Document)subject).Title + "(Owner)");
+                    Console.WriteLine(subject.Title + "(Owner)");
                 }
                 else
                 {
-                    Console.WriteLine(((Document)subject).Title + "(Collaborator)");
+                    Console.WriteLine(subject.Title + "(Collaborator)");
                 }
             }
         }
-        public void addDocument(Subject doc)
+        public void addDocument(Document doc)
         {
             if (!documents.Contains(doc))
             {
                 documents.Add(doc);
             }
         }
-        public void removeDocument(Subject doc)
+        public void removeDocument(Document doc)
         {
-            if (((Document)doc).Owner != this)
+            if (doc.Owner != this)
             {
                 documents.Remove(doc);
             }
         }
-        public void update(Subject doc, Observer o, string action)
+        public void update(Document doc, Observer o)
         {
-            if(action == "add")
+            documents.Add((Document)doc);
+            Console.WriteLine(Name + " has been notified: " + Name + " ADDED as a collaborator to "+ doc.Title);
+        }
+        public void update(Document doc, string action)
+        {
+            if (action == "submit")
             {
-                documents.Add((Document)doc);
-                Console.WriteLine(Name + " has been notified: " + ((User)o).Name + " ADDED as a collaborator");
-
-            }
-            else if(action == "remove")
-            {
-                documents.Remove((Document)doc);
-                Console.WriteLine(Name + " has been notified: " + ((User)o).Name + " REMOVED as a collaborator");
-            }
-            else if(action == "submit")
-            {
-                Console.WriteLine(Name + " has been notified: " + ((Document)doc).Title + " has been submitted for review");
+                Console.WriteLine(Name + " has been notified: " + doc.Title + " has been submitted for review");
             }
             else if (action == "push back")
             {
-                Console.WriteLine(Name + " has been notified: " + ((Document)doc).Title + " has been pushed back");
+                Console.WriteLine(Name + " has been notified: " + doc.Title + " has been pushed back");
             }
             else if (action == "approve")
             {
-                Console.WriteLine(Name + " has been notified: " + ((Document)doc).Title + " has been approved");
+                Console.WriteLine(Name + " has been notified: " + doc.Title + " has been approved");
             }
             else if (action == "reject")
             {
-                Console.WriteLine(Name + " has been notified: " + ((Document)doc).Title + " has been rejected");
+                Console.WriteLine(Name + " has been notified: " + doc.Title + " has been rejected");
             }
         }
 
