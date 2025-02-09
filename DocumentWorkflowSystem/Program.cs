@@ -1,8 +1,6 @@
-﻿// See https://aka.ms/new-console-template for more information
-using DocumentWorkflowSystem;
+﻿using DocumentWorkflowSystem;
 using DocumentWorkflowSystem.Factory;
 using System.ComponentModel.Design;
-Console.WriteLine("Hello, World!");
 
 //Store all users and documents
 List<User> users = new List<User>();
@@ -47,12 +45,13 @@ void mainMenu(){
     while (!exit)
     {
         Console.WriteLine();
-        Console.WriteLine("===== MENU =====");
+        Console.WriteLine("========= MENU =========");
         Console.WriteLine("1. Create new user");
         Console.WriteLine("2. Login");
         Console.WriteLine("3. List all users");
         Console.WriteLine("4. List all documents");
         Console.WriteLine("0. Exit");
+        Console.WriteLine("========================");
         Console.Write("Enter your choice: ");
 
         string? input = Console.ReadLine();
@@ -60,12 +59,12 @@ void mainMenu(){
         {
             case "1":
                 Console.WriteLine();
-                Console.WriteLine("New user.");
+                Console.WriteLine("\nCreating new user...\n");
                 createUser();
                 break;
             case "2":
                 Console.WriteLine();
-                Console.WriteLine("Login");
+                Console.WriteLine("\nStarting login...\n");
                 User? currentUser = login();
                 if (currentUser != null)
                 {
@@ -78,7 +77,7 @@ void mainMenu(){
                 break;
             case "3":
                 Console.WriteLine();
-                Console.WriteLine("Listing all Users...");
+                Console.WriteLine("\nListing all Users...\n");
                 foreach(User u in users)
                 {
                     Console.WriteLine(u.Name);
@@ -86,7 +85,7 @@ void mainMenu(){
                 break;
             case "4":
                 Console.WriteLine();
-                Console.WriteLine("Listing all Documents...");
+                Console.WriteLine("\nListing all Documents...\n");
                 foreach (Document doc in documents)
                 {
                     Console.WriteLine($"{doc.Title} ({doc.Owner.Name})");
@@ -96,7 +95,7 @@ void mainMenu(){
                 exit = true;
                 break;
             default:
-                Console.WriteLine("Invalid choice! Please enter a number between 1 and 4.");
+                Console.WriteLine("\nInvalid choice! Please enter a number between 1 and 4.\n");
                 break;
         }
     }
@@ -105,7 +104,7 @@ void mainMenu(){
 //Create new Users
 void createUser()
 {
-    Console.Write("Enter name");
+    Console.Write("Enter name : ");
     string? name = Console.ReadLine();
     User user = new User(name);
     users.Add(user);
@@ -114,7 +113,7 @@ void createUser()
 //Verify User login
 User? login()
 {
-    Console.Write("Enter name: ");
+    Console.Write("Enter name : ");
     string? name = Console.ReadLine();
     foreach (User u in users)
     {
@@ -132,23 +131,25 @@ void userMenu(User currentUser)
     bool exit = false;
     while (!exit)
     {
-        Console.WriteLine("===== USER MENU =====");
+        Console.WriteLine("\n======= USER MENU =======");
         Console.WriteLine("1. Create new document");
-        Console.WriteLine("2. edit document");
+        Console.WriteLine("2. Edit document");
         Console.WriteLine("3. List your documents");
         Console.WriteLine("0. Logout");
+        Console.WriteLine("=========================");
         Console.Write("Enter your choice: ");
 
         string? input = Console.ReadLine();
         switch (input)
         {
             case "1":
-                Console.WriteLine("New document.");
+
+                Console.WriteLine("\nCreating new document...\n");
                 docTypeMenu(currentUser);
-                
+               
                 break;
             case "2":
-                Console.WriteLine("Edit document ");
+                Console.WriteLine("\nEditing document...\n ");
                 Document currentDoc = getDoc(currentUser);
                 if(currentDoc != null)
                 {
@@ -160,14 +161,16 @@ void userMenu(User currentUser)
                 }
                 break;
             case "3":
-                Console.WriteLine("Listing your document");
+                Console.WriteLine("\nListing your document(s)...\n");
+                Console.WriteLine("Documents");
+                Console.WriteLine("------------------");
                 currentUser.listDocument();
                 break;
             case "0":
                 exit = true;
                 break;
             default:
-                Console.WriteLine("Invalid choice! Please enter a number between 1 and 3.");
+                Console.WriteLine("\nInvalid choice! Please enter a number between 1 and 3.\n");
                 break;
         }
     }
@@ -212,7 +215,7 @@ void docTypeMenu(User currentUser)
 //Get Document
 Document getDoc(User currentUser)
 {
-    Console.Write("Enter document name");
+    Console.Write("Enter document name : ");
     string? name = Console.ReadLine();
     foreach (Document doc in documents)
     {
@@ -237,7 +240,7 @@ void docMenu(Document currentDoc, User currentUser)
     bool exit = false;
     while (!exit)
     {
-        Console.WriteLine("===== DOCUMENT MENU =====");
+        Console.WriteLine("\n====== DOCUMENT MENU ======");
         Console.WriteLine("1. Edit");
         Console.WriteLine("2. Submit for review");
         Console.WriteLine("3. Push back");
@@ -248,17 +251,18 @@ void docMenu(Document currentDoc, User currentUser)
         Console.WriteLine("8. Produce converted file ");
         Console.WriteLine("9. Show document Content");
         Console.WriteLine("0. Stop editing");
+        Console.WriteLine("===========================");
         Console.Write("Enter your choice: ");
 
         string? input = Console.ReadLine();
         switch (input)
         {
             case "1":
-                Console.WriteLine("Edit.");
+                Console.WriteLine("\nEditing document...\n");
                 editDocument(currentDoc);
                 break;
             case "2":
-                Console.WriteLine("Submit");
+                Console.WriteLine("\nSubmitting for review...\n");
                 User? approver;
                 if (currentDoc.Approver == null)
                 {
@@ -301,22 +305,22 @@ void docMenu(Document currentDoc, User currentUser)
                 }
                 break;
             case "7":
-                Console.WriteLine("Set file type");
+                Console.WriteLine("\nSetting file type...\n");
                 setConversionType(currentDoc);
                 break;
             case "8":
-                Console.WriteLine("produce converted file");
+                Console.WriteLine("\nProduce converted file...\n");
                 printConversionDetails(currentDoc);
                 break;
             case "9":
-                Console.WriteLine("Show document content");
+                Console.WriteLine("\nShowing document content...\n");
                 showDocContent(currentDoc);
                 break;
             case "0":
                 exit = true;
                 break;
             default:
-                Console.WriteLine("Invalid choice! Please enter a number between 1 and 9.");
+                Console.WriteLine("\nInvalid choice! Please enter a number between 1 and 9.\n");
                 break;
         }
     }
@@ -342,23 +346,24 @@ void setConversionType(Document document)
     Console.WriteLine("Choose conversion format:");
     Console.WriteLine("1. Word");
     Console.WriteLine("2. PDF");
-    string? choice = Console.ReadLine();
+    Console.Write("Enter a choice : ");
+    int choice = Convert.ToInt32(Console.ReadLine());
 
     ConvertBehaviour converter = null;
     switch (choice)
     {
-        case "1":
+        case 1:
             converter = new WordConvert();  // WordConvert class
             break;
-        case "2":
+        case 2:
             converter = new PDFConvert();   // PDFConvert class
             break;
         default:
-            Console.WriteLine("Invalid choice.");
+            Console.WriteLine("\nInvalid choice.\n");
             return;
     }
 
-    Console.WriteLine("Do you want to add a watermark? (yes/no)");
+    Console.Write("Do you want to add a watermark? (Yes/No) : ");
     string? watermarkChoice = Console.ReadLine();
 
     if (watermarkChoice.ToLower() == "yes")
