@@ -14,7 +14,7 @@ namespace DocumentWorkflowSystem
             this.myDocument = document;
         }
 
-        public void ready()
+        public void ready(User approver)
         {
             // Guard Condition [only if document has been edited] 
             // change state to UnderReviewState
@@ -23,6 +23,7 @@ namespace DocumentWorkflowSystem
 
             // notify all observers that document is under review
             myDocument.notifyObserver("submit");
+
         }
 
         public void reject()

@@ -17,10 +17,11 @@ namespace DocumentWorkflowSystem
 
         private string title;
 
-        private string content;
+        private string? content;
         private string? header;
         private string? footer;
 
+        private bool canEdit;
         // references to DocumentState (State)
         private DocumentState draftState;
         private DocumentState underReviewState;
@@ -28,15 +29,16 @@ namespace DocumentWorkflowSystem
         private DocumentState approvedState;
         private DocumentState state;
 
+
         // yunze stuff (strategy)
         protected ConvertBehaviour convertBehaviour;
 
         public User Owner { get { return owner; } }
         public string Title { get { return title; } }
-        public string Content { get { return content; }set { content = value; } }
+        public string? Content { get { return content; }set { content = value; } }
         public string? Header { get { return header; } set { header = value; } }
         public string? Footer { get { return footer; } set { footer = value; } }
-        public User Approver { get { return approver; } set { approver = value; } }
+        public User? Approver { get { return approver; } set { approver = value; } }
 
         // For conversion
         public void SetConvertBehaviour(ConvertBehaviour behaviour)
@@ -80,6 +82,8 @@ namespace DocumentWorkflowSystem
             this.state = state;
         }
 
+        public bool CanEdit { get { return canEdit; } set { canEdit = value; } }
+
 
         // constructor
         public Document(User owner, string title)
@@ -98,6 +102,8 @@ namespace DocumentWorkflowSystem
             rejectedState = new RejectedState(this);
             approvedState = new ApprovedState(this);
             state = draftState;
+
+            canEdit = true;
         }
 
         public void registerObserver(Observer o)
@@ -138,9 +144,39 @@ namespace DocumentWorkflowSystem
             }
         }
 
-        public void assignApprover(User approver)
+        public void ready(User approver)
         {
-            
+            state.ready(approver);
+        }
+
+        public void lockDocument()
+        {
+            canEdit = false;
+        }
+
+        public void unlockDocument()
+        {
+            canEdit = true;
+        }
+
+        public bool assignApprover(User approver)
+        {
+            if (this.approver == approver)
+            {
+                return true;
+            }
+            else
+            {
+                foreach(Observer o in observers)
+                {
+                    if(approver ==  o)
+                    {
+                        return false;
+                    }
+                }
+                this.approver = approver;
+                return true;
+            }
         }
     }
 }

@@ -257,23 +257,36 @@ void docMenu(Document currentDoc, User currentUser)
         switch (input)
         {
             case "1":
-                Console.WriteLine("\nEditing document...\n");
-                editDocument(currentDoc);
+                if (currentDoc.CanEdit == true)
+                {
+                    Console.WriteLine("\nEditing document...\n");
+                    editDocument(currentDoc);
+                }
+                else
+                {
+                    Console.WriteLine("This document cannot be edited currently.");
+                }
+
                 break;
             case "2":
                 Console.WriteLine("\nSubmitting for review...\n");
                 User? approver;
                 if (currentDoc.Approver == null)
                 {
+                    Console.WriteLine("Enter approver.");
                     approver = login();
                     if (approver != null)
                     {
-                        currentDoc.assignApprover(approver);
+                        currentDoc.ready(approver);
                     }
                     else
                     {
                         Console.WriteLine("No valid user found");
                     }
+                }
+                else
+                {
+                    currentDoc.ready(currentDoc.Approver);
                 }
                 
                 

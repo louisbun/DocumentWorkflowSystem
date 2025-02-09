@@ -16,16 +16,30 @@ namespace DocumentWorkflowSystem
             myDocument = document;
         }
 
-        public void ready()
+        public void ready(User approver)
         {
-            Console.WriteLine("Sending this document to be reviewed.");
+            
             // assign approver if empty
+            if (myDocument.assignApprover(approver))
+            {
+                // lock the document to not allow editing
+                myDocument.lockDocument();
 
-            // lock the document to not allow editing
-            // change the state to UnderReviewState
+                // change the state to UnderReviewState
+                Console.WriteLine("Sending this document to be reviewed...");
+                myDocument.setState(myDocument.UnderReviewState);
 
-            // notify all the observers that document is under review
-            myDocument.notifyObserver("submit");
+                // notify all the observers that document is under review
+                myDocument.notifyObserver("submit");
+
+            }
+            else
+            {
+                Console.WriteLine("Please assign an approver who is not a " +
+                    "collaborator of this document.");
+                Console.WriteLine();
+            }
+
         }
 
         public void reject()

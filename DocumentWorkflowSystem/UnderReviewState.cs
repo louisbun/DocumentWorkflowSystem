@@ -14,7 +14,7 @@ namespace DocumentWorkflowSystem
             myDocument = document;
         }
 
-        public void ready()
+        public void ready(User approver)
         {
             Console.WriteLine("This document is already under review.");
         }
@@ -33,6 +33,7 @@ namespace DocumentWorkflowSystem
         {
             // keep approver
             // add comment
+            // unlockDocument so that it can be edited
             // change state back to DraftState
 
             // notify all oberservs that document is pushed back
@@ -45,6 +46,7 @@ namespace DocumentWorkflowSystem
 
             // notify all observers that document is approved
             myDocument.notifyObserver("approve");
+
         }
     }
 }
