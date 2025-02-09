@@ -14,7 +14,7 @@ namespace DocumentWorkflowSystem
             myDocument = document;
         }
 
-        public void ready(User approver)
+        public void submit(User approver)
         {
             Console.WriteLine("This document has already been approved.");
         }

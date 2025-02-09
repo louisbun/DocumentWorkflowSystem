@@ -22,6 +22,7 @@ namespace DocumentWorkflowSystem
         private string? footer;
 
         private bool canEdit;
+        private bool edited;
         // references to DocumentState (State)
         private DocumentState draftState;
         private DocumentState underReviewState;
@@ -34,7 +35,7 @@ namespace DocumentWorkflowSystem
         private BaseConverter converter;
 
         public User Owner { get { return owner; } }
-        public string Title { get { return title; } }
+        public string? Title { get { return title; } }
         public string? Content { get { return content; }set { content = value; } }
         public string? Header { get { return header; } set { header = value; } }
         public string? Footer { get { return footer; } set { footer = value; } }
@@ -85,7 +86,7 @@ namespace DocumentWorkflowSystem
         }
 
         public bool CanEdit { get { return canEdit; } set { canEdit = value; } }
-
+        public bool Edited { get { return edited; } set { edited = value; } }
 
         // constructor
         public Document(User owner, string title)
@@ -106,6 +107,7 @@ namespace DocumentWorkflowSystem
             state = draftState;
 
             canEdit = true;
+            edited = false;
         }
 
         public void registerObserver(Observer o)
@@ -146,9 +148,25 @@ namespace DocumentWorkflowSystem
             }
         }
 
-        public void ready(User approver)
+
+        // State related methods
+        public void submit(User approver)
         {
-            state.ready(approver);
+            state.submit(approver);
+        }
+
+        public void pushBack()
+        {
+            state.pushBack();
+        }
+
+        public void reject()
+        {
+            state.reject();
+        }
+        public void approve()
+        {
+            state.approve();
         }
 
         public void lockDocument()
@@ -179,6 +197,27 @@ namespace DocumentWorkflowSystem
                 this.approver = approver;
                 return true;
             }
+        }
+
+        public void unassignApprover()
+        {
+            approver = null;
+        }
+
+        public string? addPushBackReason()
+        {
+            string? comment;
+            Console.WriteLine("Enter the reason for pushing back: ");
+            comment = Console.ReadLine();
+            return comment;
+        }
+
+        public string? addRejectedReason()
+        {
+            string? comment;
+            Console.WriteLine("Enter the reason for rejecting: ");
+            comment = Console.ReadLine();
+            return comment;
         }
     }
 }
