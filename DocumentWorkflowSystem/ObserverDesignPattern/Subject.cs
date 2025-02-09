@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DocumentWorkflowSystem
+namespace DocumentWorkflowSystem.ObserverDesignPattern
 {
     interface Subject
     {
-        void registerObserver(Observer o,User u);
+        void registerObserver(Observer o, User u);
         void removeObserver(Observer o);
-        void notifyObserver(string action,Observer o);
+        void notifyObserver(string action, Observer o);
     }
 }
