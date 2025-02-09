@@ -354,6 +354,8 @@ void printConversionDetails(Document document)
         string? conversionType = document.GetConvertBehaviour() is PDFConvert ? "PDF" : "Word";
         Console.WriteLine($"Current conversion type: {conversionType}");
 
+        document.GetConvertBehaviour().convert();
+
         // Check if a watermark decorator is applied
         if (document.GetConvertBehaviour() is WatermarkDecorator watermarkDecorator)
         {
