@@ -407,33 +407,49 @@ void setConversionType(Document document)
             return;
     }
 
-    // Ask if the user wants to apply a watermark
-    Console.Write("Do you want to add a watermark? (Yes/No): ");
-    string? watermarkChoice = Console.ReadLine();
-    if (watermarkChoice.ToLower() == "yes")
+    string? watermarkChoice;
+    do
+    {
+        Console.Write("Do you want to add a watermark? (Yes/No): ");
+        watermarkChoice = Console.ReadLine()?.ToLower();
+    } while (watermarkChoice != "yes" && watermarkChoice != "no");
+
+    if (watermarkChoice == "yes")
     {
         Console.Write("Enter watermark text: ");
         string? watermarkText = Console.ReadLine();
         converter = new WatermarkDecorator(converter, watermarkText);
     }
 
-    Console.Write("\nDo you want to compress the document? (Yes/No) : ");
-    string? compressChoice = Console.ReadLine();
-    if (compressChoice.ToLower() == "yes")
+    // Ask if the user wants to compress the document
+    string? compressChoice;
+    do
+    {
+        Console.Write("\nDo you want to compress the document? (Yes/No) : ");
+        compressChoice = Console.ReadLine()?.ToLower();
+    } while (compressChoice != "yes" && compressChoice != "no");
+
+    if (compressChoice == "yes")
     {
         converter = new CompressDecorator(converter);
     }
 
-    Console.Write("\nDo you want to encrypt the document? (Yes/No) : ");
-    string? encryptChoice = Console.ReadLine();
-    if (encryptChoice.ToLower() == "yes")
+    // Ask if the user wants to encrypt the document
+    string? encryptChoice;
+    do
     {
-        Console.Write("Enter encryption a key : ");
+        Console.Write("\nDo you want to encrypt the document? (Yes/No) : ");
+        encryptChoice = Console.ReadLine()?.ToLower();
+    } while (encryptChoice != "yes" && encryptChoice != "no");
+
+    if (encryptChoice == "yes")
+    {
+        Console.Write("Enter encryption key: ");
         string? encryptionKey = Console.ReadLine();
         converter = new EncryptDecorator(converter, encryptionKey);
     }
 
-    // Wrap converter with the template class
+
     BaseConverter baseConverter = choice == 1 ? new WordConverter(converter) : new PDFConverter(converter);
 
     document.SetConverter(baseConverter);
