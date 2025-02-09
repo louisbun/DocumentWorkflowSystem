@@ -1,27 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DocumentWorkflowSystem
 {
-    public abstract class BaseConverter : ConvertBehaviour
+    internal abstract class BaseConverter 
     {
-        public void convert()
+        
+        protected ConvertBehaviour convertBehaviour;  // Strategy instance
+
+        public ConvertBehaviour getConvertBehaviour()
         {
-            prepareDocument();
-            convertContent();
-            finaliseConvert();
+            return convertBehaviour;
         }
-        public void prepareDocument()
+
+        public BaseConverter(ConvertBehaviour behaviour)
         {
-            Console.WriteLine("Preparing document for conversion...");
+            convertBehaviour = behaviour;
         }
-        public abstract void convertContent();
-        public void finaliseConvert()
+
+        public void convert(Document document)  // Template Method
         {
-            Console.WriteLine("Finalising document conversion.");
+           
+            prepareDocument(document);
+            applyFormatting(document);
+            performConvert(document);  // Calls Strategy dynamically
+            generateFileName(document);
+            finaliseConvert(document);
+        }
+
+        public void performConvert(Document document)
+        {
+            convertBehaviour.convert(document);
+        }
+        public abstract void applyFormatting(Document document);
+        public abstract void generateFileName(Document document);
+
+        public void prepareDocument(Document document)
+        {
+            Console.WriteLine($"Preparing '{document.Title}' for conversion...");
+        }
+
+        public void finaliseConvert(Document document)
+        {
+            Console.WriteLine($"Finalizing conversion of '{document.Title}'.");
         }
     }
 }

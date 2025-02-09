@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 
 namespace DocumentWorkflowSystem
 {
-    public abstract class ConvertDecorator : ConvertBehaviour
+    
+    internal abstract class ConvertDecorator : ConvertBehaviour
     {
         protected ConvertBehaviour converter;
+
         public ConvertDecorator(ConvertBehaviour converter)
         {
             this.converter = converter;
         }
 
-        public virtual void convert()
+        public virtual void convert(Document document)
         {
-            converter.convert();
+            converter.convert(document);  // Calls the wrapped strategy
         }
     }
+
 }

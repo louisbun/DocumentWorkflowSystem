@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace DocumentWorkflowSystem
 {
-    internal class WordConvert : BaseConverter
+    
+    internal class WordConvert : ConvertBehaviour
     {
-        public override void convertContent()
+        public void convert(Document document)
         {
-            Console.WriteLine("Converting document to Word format ...");
+            Console.WriteLine($"Converting '{document.Title}' to Word format...");
+           
         }
     }
+
 }

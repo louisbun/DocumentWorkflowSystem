@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace DocumentWorkflowSystem
 {
-    internal class PDFConvert : BaseConverter
+    
+    internal class PDFConvert : ConvertBehaviour
     {
-        public override void convertContent()
+        public void convert(Document document)
         {
-            Console.WriteLine("Converting document to PDF format ...");
+            Console.WriteLine($"Converting '{document.Title}' to PDF format...");
+            
         }
     }
+
 }
