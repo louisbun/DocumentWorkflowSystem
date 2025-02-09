@@ -31,7 +31,7 @@ namespace DocumentWorkflowSystem
             string? comment = myDocument.addRejectedReason();
 
             // change state to RejectedState
-            Console.Write($"Rejecting document [{myDocument.Title}] - Reason: " +  comment);
+            Console.WriteLine($"Rejecting document [{myDocument.Title}] - Reason: " +  comment);
             myDocument.setState(myDocument.RejectedState);
 
             // notify all obersvers that document is rejected

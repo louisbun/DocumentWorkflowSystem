@@ -392,7 +392,7 @@ void setConversionType(Document document)
     Console.Write("Enter a choice: ");
     int choice = Convert.ToInt32(Console.ReadLine());
 
-    ConvertBehaviour converter = null;
+    ConvertBehaviour? converter = null;
 
     switch (choice)
     {
