@@ -79,12 +79,11 @@ namespace DocumentWorkflowSystem
 
 
         // constructor
-        public Document(User owner, string title, string content)
+        public Document(User owner, string title)
         {
             this.owner = owner;
 
             this.title = title;
-            this.content = content;
 
             observers = new List<Observer>();
 

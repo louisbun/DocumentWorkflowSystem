@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,14 +24,14 @@ namespace DocumentWorkflowSystem
             documents = new List<Subject>();
         }
 
-        public void createDocument()
+        public Document createDocument()
         {
             Console.WriteLine("Document Types");
             Console.WriteLine("1. Grant Proposal");
             Console.WriteLine("2. Technical Report");
             int docNo;
             bool isValidInput = false;
-
+            Document doc;
             while (!isValidInput)
             {
                 Console.WriteLine("Enter document type: ");
@@ -52,21 +53,24 @@ namespace DocumentWorkflowSystem
                 {
                     Console.WriteLine("Invalid input. Please enter a valid number.");
                 }
-                Document doc;
-
+                Console.WriteLine("Enter title for your document: ");
+                string? title = Console.ReadLine();
                 if (docNo == 1)
                 {
                     GrantProposalFactory grantProposalFactory = new GrantProposalFactory();
-                    doc = grantProposalFactory.createDocument();
+                    doc = grantProposalFactory.createDocument(this, title);
                 }
 
                 else
                 {
                     TechnicalReportFactory technicalReportFactory = new TechnicalReportFactory();
-                    doc = createDocument(technicalReportFactory);
+                    doc = technicalReportFactory.createDocument(this, title);
+
                 }
                 documents.Add(doc);
+                return doc;
             }
+            
         }
 
         public void listDocument()
@@ -128,10 +132,5 @@ namespace DocumentWorkflowSystem
             }
         }
 
-        public Document createDocument(DocumentFactory docFactory)
-        {
-            Document doc = docFactory.createDocument(this);
-            return doc;
-        }
     }
 }

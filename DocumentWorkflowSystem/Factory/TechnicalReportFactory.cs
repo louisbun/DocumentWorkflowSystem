@@ -8,9 +8,9 @@ namespace DocumentWorkflowSystem.Factory
 {
     internal class TechnicalReportFactory : DocumentFactory
     {
-        public override Document createDocument(User user)
+        public override Document createDocument(User owner, string title)
         {
-            return new TechicalReport(user);
+            return new TechicalReport(owner, title);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace DocumentWorkflowSystem
     internal class TechicalReport : Document
     {
 
-        public TechicalReport(User owner, string title, string content) : base(owner, title, content)
+        public TechicalReport(User owner, string title) : base(owner, title)
         {
             Header = "Technical Report";
             Footer = "Footer";

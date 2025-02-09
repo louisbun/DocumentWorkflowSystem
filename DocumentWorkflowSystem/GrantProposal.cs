@@ -4,7 +4,7 @@
     {
 
 
-        public GrantProposal(User owner, string title, string content) : base(owner, title, content)
+        public GrantProposal(User owner, string title) : base(owner, title)
         {
             Header = "Grant Proposal";
             Footer = "Standard Footer";

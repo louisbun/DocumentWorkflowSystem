@@ -31,18 +31,20 @@ users.Add(zhenkang);
 users.Add(louis);
 
 //Initalise document
-Document josephDoc = grantProposalFactory.createDocument(joseph);
-Document anotherDoc = grantProposalFactory.createDocument(yunze);
-Document nextDoc = technicalReportFactory.createDocument(zhenkang);
+Document josephDoc = grantProposalFactory.createDocument(joseph, "gp1");
+Document anotherDoc = grantProposalFactory.createDocument(yunze, "yunze story");
+Document nextDoc = technicalReportFactory.createDocument(zhenkang, "ZhenKang story");
 
 
 //Adding document to User 
 joseph.addDocument(josephDoc);
 yunze.addDocument(anotherDoc);
+zhenkang.addDocument(nextDoc);
 
 //Adding to document List
 documents.Add(josephDoc);
 documents.Add(anotherDoc);
+documents.Add(nextDoc);
 
 mainMenu();
 
@@ -60,7 +62,7 @@ void mainMenu(){
         Console.WriteLine("0. Exit");
         Console.Write("Enter your choice: ");
 
-        string input = Console.ReadLine();
+        string? input = Console.ReadLine();
         switch (input)
         {
             case "1":
@@ -71,7 +73,7 @@ void mainMenu(){
             case "2":
                 Console.WriteLine();
                 Console.WriteLine("Login");
-                User currentUser = login();
+                User? currentUser = login();
                 if (currentUser != null)
                 {
                     userMenu(currentUser);
@@ -111,16 +113,16 @@ void mainMenu(){
 void createUser()
 {
     Console.Write("Enter name");
-    string name = Console.ReadLine();
+    string? name = Console.ReadLine();
     User user = new User(name);
     users.Add(user);
 }
 
 //Verify User login
-User login()
+User? login()
 {
     Console.Write("Enter name");
-    string name = Console.ReadLine();
+    string? name = Console.ReadLine();
     foreach (User u in users)
     {
         if (u.Name == name)
@@ -144,12 +146,13 @@ void userMenu(User currentUser)
         Console.WriteLine("0. Logout");
         Console.Write("Enter your choice: ");
 
-        string input = Console.ReadLine();
+        string? input = Console.ReadLine();
         switch (input)
         {
             case "1":
                 Console.WriteLine("New document.");
                 currentUser.createDocument();
+                
                 break;
             case "2":
                 Console.WriteLine("Edit document ");
@@ -182,7 +185,7 @@ void userMenu(User currentUser)
 Document getDoc(User currentUser)
 {
     Console.Write("Enter document name");
-    string name = Console.ReadLine();
+    string? name = Console.ReadLine();
     foreach (Document doc in documents)
     {
         if (doc.Title == name)
@@ -219,7 +222,7 @@ void docMenu(Document currentDoc, User currentUser)
         Console.WriteLine("0. Stop editing");
         Console.Write("Enter your choice: ");
 
-        string input = Console.ReadLine();
+        string? input = Console.ReadLine();
         switch (input)
         {
             case "1":
@@ -279,7 +282,7 @@ void docMenu(Document currentDoc, User currentUser)
 void editDocument(Document currentDoc)
 {
     Console.WriteLine("Add text to document");
-    string text = Console.ReadLine();
+    string? text = Console.ReadLine();
     currentDoc.Content += "\n" + text;
 }
 void showDocContent(Document currentDoc)
@@ -296,7 +299,7 @@ void setConversionType(Document document)
     Console.WriteLine("Choose conversion format:");
     Console.WriteLine("1. Word");
     Console.WriteLine("2. PDF");
-    string choice = Console.ReadLine();
+    string? choice = Console.ReadLine();
 
     ConvertBehaviour converter = null;
     switch (choice)
@@ -313,12 +316,12 @@ void setConversionType(Document document)
     }
 
     Console.WriteLine("Do you want to add a watermark? (yes/no)");
-    string watermarkChoice = Console.ReadLine();
+    string? watermarkChoice = Console.ReadLine();
 
     if (watermarkChoice.ToLower() == "yes")
     {
         Console.Write("Enter watermark text: ");
-        string watermarkText = Console.ReadLine();
+        string? watermarkText = Console.ReadLine();
         converter = new WatermarkDecorator(converter, watermarkText);  // Add watermark decorator
     }
 
@@ -333,7 +336,7 @@ void printConversionDetails(Document document)
     if (document.GetConvertBehaviour() != null)
     {
         // Output the conversion type as "PDF" or "Word"
-        string conversionType = document.GetConvertBehaviour() is PDFConvert ? "PDF" : "Word";
+        string? conversionType = document.GetConvertBehaviour() is PDFConvert ? "PDF" : "Word";
         Console.WriteLine($"Current conversion type: {conversionType}");
 
         // Check if a watermark decorator is applied

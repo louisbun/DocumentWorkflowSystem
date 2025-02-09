@@ -8,6 +8,6 @@ namespace DocumentWorkflowSystem.Factory
 {
     internal abstract class DocumentFactory
     {
-        public abstract Document createDocument();
+        public abstract Document createDocument(User owner, string title);
     }
 }

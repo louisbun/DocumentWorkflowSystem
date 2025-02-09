@@ -8,12 +8,10 @@ namespace DocumentWorkflowSystem.Factory
 {
     internal class GrantProposalFactory : DocumentFactory
     {
-        public GrantProposalFactory() {
 
-        }
-        public override Document createDocument()
+        public override Document createDocument(User owner, string title)
         {
-            return new GrantProposal();
+            return new GrantProposal(owner, title);
         }
     }
 }
