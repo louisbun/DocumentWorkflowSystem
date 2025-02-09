@@ -24,7 +24,7 @@ namespace DocumentWorkflowSystem
             documents = new List<Subject>();
         }
 
-        public Document createDocument()
+        public void createDocument()
         {
             Console.WriteLine("Document Types");
             Console.WriteLine("1. Grant Proposal");
@@ -68,7 +68,6 @@ namespace DocumentWorkflowSystem
 
                 }
                 documents.Add(doc);
-                return doc;
             }
             
         }

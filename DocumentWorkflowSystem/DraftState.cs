@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +20,7 @@ namespace DocumentWorkflowSystem
         {
             Console.WriteLine("Sending this document to be reviewed.");
             // assign approver if empty
+            
             // lock the document to not allow editing
             // change the state to UnderReviewState
 

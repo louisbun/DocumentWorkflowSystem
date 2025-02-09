@@ -34,6 +34,7 @@ namespace DocumentWorkflowSystem
         public string Content { get { return content; }set { content = value; } }
         public string? Header { get { return header; } set { header = value; } }
         public string? Footer { get { return footer; } set { footer = value; } }
+        public User Approver { get { return approver; } set { approver = value; } }
 
         // For conversion
         public void SetConvertBehaviour(ConvertBehaviour behaviour)
@@ -142,6 +143,11 @@ namespace DocumentWorkflowSystem
                     o.update(this, observe, action);
                 }
             }
+        }
+
+        public void assignApprover(User approver)
+        {
+            
         }
     }
 }

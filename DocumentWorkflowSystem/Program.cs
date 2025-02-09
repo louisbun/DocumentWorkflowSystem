@@ -121,7 +121,7 @@ void createUser()
 //Verify User login
 User? login()
 {
-    Console.Write("Enter name");
+    Console.Write("Enter name: ");
     string? name = Console.ReadLine();
     foreach (User u in users)
     {
@@ -231,6 +231,21 @@ void docMenu(Document currentDoc, User currentUser)
                 break;
             case "2":
                 Console.WriteLine("Submit");
+                User? approver;
+                if (currentDoc.Approver == null)
+                {
+                    approver = login();
+                    if (approver != null)
+                    {
+                        currentDoc.assignApprover(approver);
+                    }
+                    else
+                    {
+                        Console.WriteLine("No valid user found");
+                    }
+                }
+                
+                
                 currentDoc.notifyObserver("submit", currentUser);
                 break;
             case "3":
