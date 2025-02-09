@@ -34,7 +34,7 @@ namespace DocumentWorkflowSystem
             while (!isValidInput)
             {
                 Console.WriteLine("Enter document type: ");
-                string input = Console.ReadLine();
+                string? input = Console.ReadLine();
 
                 if (int.TryParse(input, out docNo))
                 {
@@ -57,7 +57,7 @@ namespace DocumentWorkflowSystem
                 if (docNo == 1)
                 {
                     GrantProposalFactory grantProposalFactory = new GrantProposalFactory();
-                    doc = createDocument(grantProposalFactory);
+                    doc = grantProposalFactory.createDocument();
                 }
 
                 else

@@ -7,18 +7,17 @@ using System.Threading.Tasks;
 
 namespace DocumentWorkflowSystem
 {
-    internal class Document:Subject
+    internal class Document : Subject
     {
         private List<Observer> observers;
         private User owner;
-        private User approver;
-        //protected ConvertBehavior convertBehavior; (Strategy pattern)
-        private string documentID;
+        private User? approver;
+
         private string title;
-        //private DocumentType type;
+
         private string content;
-        private string header;
-        private string footer;
+        private string? header;
+        private string? footer;
 
         // references to DocumentState (State)
         private DocumentState draftState;
@@ -27,13 +26,14 @@ namespace DocumentWorkflowSystem
         private DocumentState approvedState;
         private DocumentState state;
 
+        // yunze stuff (strategy)
         protected ConvertBehaviour convertBehaviour;
 
         public User Owner { get { return owner; } }
         public string Title { get { return title; } }
         public string Content { get { return content; }set { content = value; } }
-        public string Header { get { return header; } }
-        public string Footer { get { return footer; } }
+        public string? Header { get { return header; } set { header = value; } }
+        public string? Footer { get { return footer; } set { footer = value; } }
 
         // For conversion
         public void SetConvertBehaviour(ConvertBehaviour behaviour)
@@ -79,13 +79,13 @@ namespace DocumentWorkflowSystem
 
 
         // constructor
-        public Document(User owner, string title, string header, string content, string footer)
+        public Document(User owner, string title, string content)
         {
             this.owner = owner;
-            this.header = header;
+
             this.title = title;
             this.content = content;
-            this.footer = footer;
+
             observers = new List<Observer>();
 
             observers.Add(owner);

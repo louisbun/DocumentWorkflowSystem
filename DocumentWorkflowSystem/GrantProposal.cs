@@ -1,17 +1,15 @@
 ﻿namespace DocumentWorkflowSystem
 {
-    public class GrantProposal : Document
+    internal class GrantProposal : Document
     {
-        private User user;
 
-        public GrantProposal(User user)
+
+        public GrantProposal(User owner, string title, string content) : base(owner, title, content)
         {
-            this.user = user;
+            Header = "Grant Proposal";
+            Footer = "Standard Footer";
         }
 
-        public override void createBody()
-        {
-            
-        }
+        
     }
 }

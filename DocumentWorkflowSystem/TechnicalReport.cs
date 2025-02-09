@@ -8,18 +8,15 @@ using DocumentWorkflowSystem;
 
 namespace DocumentWorkflowSystem
 {
-    public class TechicalReport : Document
+    internal class TechicalReport : Document
     {
-        private User user;
 
-        public TechicalReport(User user)
+        public TechicalReport(User owner, string title, string content) : base(owner, title, content)
         {
-            this.user = user;
+            Header = "Technical Report";
+            Footer = "Footer";
         }
 
-        public override void createBody()
-        {
-            
-        }
+        
     }
 }

@@ -256,7 +256,7 @@ void docMenu(Document currentDoc, User currentUser)
                 break;
             case "7":
                 Console.WriteLine("Set file type");
-                SetConversionType(currentDoc);
+                setConversionType(currentDoc);
                 break;
             case "8":
                 Console.WriteLine("produce converted file");
