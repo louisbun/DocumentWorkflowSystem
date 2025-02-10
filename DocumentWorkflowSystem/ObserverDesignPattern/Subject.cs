@@ -10,7 +10,9 @@ namespace DocumentWorkflowSystem.ObserverDesignPattern
     {
         void registerObserver(Observer o);
         void removeObserver(Observer o);
-        void notifyObserver(Observer o);
-        void notifyObserver(string action);
+/*        void notifyObserver(Observer o);
+        void notifyObserver(string action);*/
+        void notifyObserver(Observer o, string action);
+
     }
 }

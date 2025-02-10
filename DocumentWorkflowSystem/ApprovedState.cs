@@ -19,17 +19,17 @@ namespace DocumentWorkflowSystem
             Console.WriteLine("This document has already been approved.");
         }
 
-        public void reject()
+        public void reject(User approver)
         {
             Console.WriteLine("This document has already been approved.");
         }
 
-        public void pushBack()
+        public void pushBack(User approver)
         {
             Console.WriteLine("This document has already been approved.");
         }
 
-        public void approve()
+        public void approve(User approver)
         {
             Console.WriteLine("This document has already been approved.");
         }

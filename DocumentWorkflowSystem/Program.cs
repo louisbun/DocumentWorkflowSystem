@@ -22,15 +22,10 @@ users.Add(zhenkang);
 users.Add(louis);
 
 //Initalise document
-Document josephDoc = grantProposalFactory.createDocument(joseph, "gp1");
-Document anotherDoc = grantProposalFactory.createDocument(yunze, "yunze story");
-Document nextDoc = technicalReportFactory.createDocument(zhenkang, "ZhenKang story");
+Document josephDoc = joseph.createDocument("Grant", "gp1");
+Document anotherDoc = yunze.createDocument("Technical", "HellO WORLD!");
+Document nextDoc = zhenkang.createDocument("Grant", "Yellow");
 
-
-//Adding document to User 
-joseph.addDocument(josephDoc);
-yunze.addDocument(anotherDoc);
-zhenkang.addDocument(nextDoc);
 
 //Adding to document List
 documents.Add(josephDoc);
@@ -260,7 +255,14 @@ void docMenu(Document currentDoc, User currentUser)
                 if (currentDoc.CanEdit == true)
                 {
                     Console.WriteLine("\nEditing document...\n");
-                    editDocument(currentDoc);
+                    if(currentDoc.Approver == currentUser)
+                    {
+                        Console.WriteLine("Approver CANNOT EDIT!");
+                    }
+                    else
+                    {
+                        editDocument(currentDoc);
+                    }  
                 }
                 else
                 {
@@ -270,32 +272,40 @@ void docMenu(Document currentDoc, User currentUser)
 
                 break;
             case "2":
-                Console.WriteLine("\nSubmitting for review...\n");
-                User? approver;
-                if (currentDoc.Approver == null)
+                if(currentDoc.Approver == currentUser)
                 {
-                    Console.WriteLine("Assign approver.");
-                    approver = login();
-                    if (approver != null)
-                    {
-                        currentDoc.submit(approver);
-                        approver.addDocument(currentDoc); // adding documents to the approver
-                    }
-                    else
-                    {
-                        Console.WriteLine("No valid user found");
-                    }
+                    Console.WriteLine("Approver cannot submit document!!!");
                 }
                 else
                 {
-                    currentDoc.submit(currentDoc.Approver);
+                    Console.WriteLine("\nSubmitting for review...\n");
+                    User? approver;
+                    if (currentDoc.Approver == null)
+                    {
+                        Console.WriteLine("Assign approver.");
+                        approver = login();
+                        if (approver != null)
+                        {
+                            currentDoc.submit(approver);
+                            //approver.addDocument(currentDoc); // adding documents to the approver
+                        }
+                        else
+                        {
+                            Console.WriteLine("No valid user found");
+                        }
+                    }
+                    else
+                    {
+                        currentDoc.submit(currentDoc.Approver);
+                    }
                 }
 
                 break;
             case "3":
                 if (currentUser == currentDoc.Approver)
                 {
-                    currentDoc.pushBack();
+                    currentDoc.pushBack(currentUser);
+                    exit = true;
                 }
                 else
                 {
@@ -306,7 +316,7 @@ void docMenu(Document currentDoc, User currentUser)
             case "4":
                 if (currentUser == currentDoc.Approver)
                 {
-                    currentDoc.approve();
+                    currentDoc.approve(currentUser);
                 }
                 else
                 {
@@ -317,8 +327,9 @@ void docMenu(Document currentDoc, User currentUser)
             case "5":
                 if (currentUser == currentDoc.Approver)
                 {
-                    currentDoc.reject();
+                    currentDoc.reject(currentUser);
                     currentDoc.Edited = false;
+                    exit = true;
                 }
                 else
                 {
@@ -333,7 +344,8 @@ void docMenu(Document currentDoc, User currentUser)
                 {
                     if(currentDoc.Owner == currentUser)
                     {
-                        currentDoc.registerObserver(collab);
+                        collab.addDocument(currentDoc);
+                        //currentDoc.registerObserver(collab);
                     }
                     else
                     {
