@@ -10,7 +10,7 @@ namespace DocumentWorkflowSystem
     internal abstract class BaseConverter 
     {
         
-        protected ConvertBehaviour convertBehaviour;  // Strategy instance
+        protected ConvertBehaviour convertBehaviour;  // Strategy 
 
         public ConvertBehaviour getConvertBehaviour()
         {
@@ -22,12 +22,12 @@ namespace DocumentWorkflowSystem
             convertBehaviour = behaviour;
         }
 
-        public void convert(Document document)  // Template Method
+        public void convert(Document document)  
         {
            
             prepareDocument(document);
             applyFormatting(document);
-            performConvert(document);  // Calls Strategy dynamically
+            performConvert(document);  
             generateFileName(document);
             finaliseConvert(document);
         }
