@@ -13,7 +13,7 @@ namespace DocumentWorkflowSystem
 
         public override void applyFormatting(Document document)
         {
-            Console.WriteLine($"Applying PDF formatting (margins, fonts) for '{document.Title}'...");
+            Console.WriteLine($"Applying PDF formatting for '{document.Title}'...");
         }
 
         public override void generateFileName(Document document)
