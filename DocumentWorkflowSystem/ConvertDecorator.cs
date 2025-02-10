@@ -18,7 +18,7 @@ namespace DocumentWorkflowSystem
 
         public virtual void convert(Document document)
         {
-            converter.convert(document);  // Calls the wrapped strategy
+            converter.convert(document);  
         }
     }
 
