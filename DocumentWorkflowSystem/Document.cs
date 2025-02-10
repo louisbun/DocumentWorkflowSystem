@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -112,42 +113,34 @@ namespace DocumentWorkflowSystem
 
         public void registerObserver(Observer o)
         {
-            if(observers.Contains(o))
-            {
-                Console.WriteLine(((User)o).Name + " is already added.");
-            }
-            else
-            {
-                observers.Add(o);
-                notifyObserver(o);
-            }
+            observers.Add(o);
+            notifyObserver(o,"add");
         }
 
         public void removeObserver(Observer o)
         {
-            if (observers.Contains(o) && o != owner)
+            observers.Remove(o);
+            notifyObserver(o, "remove");
+        }
+
+        public void notifyObserver(Observer o, string action)
+        {
+            if (action == "add" || action == "remove")
             {
-                observers.Remove(o);
+                o.update(this, action, false);
             }
             else
             {
-                Console.WriteLine(((User)o).Name + " is not a collaborator or is the owner of the document");
-            }
-            
-        }
-        public void notifyObserver(Observer observe)
-        {
-            observe.update(this, observe);
-        }
-
-        public void notifyObserver(string action)
-        {
-            foreach (Observer o in observers)
-            {
-                o.update(this,action);
+                foreach (Observer observer in observers)
+                {
+                    if(observer == this.Approver)
+                    {
+                        continue;
+                    }
+                    observer.update(this, action, true);
+                }
             }
         }
-
 
         // State related methods
         public void submit(User approver)
@@ -155,18 +148,18 @@ namespace DocumentWorkflowSystem
             state.submit(approver);
         }
 
-        public void pushBack()
+        public void pushBack(User approver)
         {
-            state.pushBack();
+            state.pushBack(approver);
         }
 
-        public void reject()
+        public void reject(User approver)
         {
-            state.reject();
+            state.reject(approver);
         }
-        public void approve()
+        public void approve(User approver)
         {
-            state.approve();
+            state.approve(approver);
         }
 
         public void lockDocument()

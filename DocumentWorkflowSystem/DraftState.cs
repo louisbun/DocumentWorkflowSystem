@@ -30,8 +30,8 @@ namespace DocumentWorkflowSystem
                 myDocument.setState(myDocument.UnderReviewState);
 
                 // notify all the observers that document is under review
-                myDocument.notifyObserver("submit");
-
+                myDocument.notifyObserver(approver, "submit");
+                approver.addDocument(myDocument);
             }
             else
             {
@@ -42,17 +42,17 @@ namespace DocumentWorkflowSystem
 
         }
 
-        public void reject()
+        public void reject(User approver)
         {
             Console.WriteLine("This document can't be rejected during draft.");
         }
 
-        public void pushBack()
+        public void pushBack(User approver)
         {
             Console.WriteLine("This document cannot be push back during draft.");
         }
 
-        public void approve()
+        public void approve(User approver)
         {
             Console.WriteLine("This document cannot be approved during draft.");
         }
