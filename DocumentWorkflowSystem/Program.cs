@@ -253,25 +253,19 @@ void docMenu(Document currentDoc, User currentUser)
         switch (input)
         {
             case "1":
-                if (currentDoc.CanEdit == true)
+
+                Console.WriteLine("\nEditing document...\n");
+                if (currentDoc.Approver == currentUser)
                 {
-                    Console.WriteLine("\nEditing document...\n");
-                    if(currentDoc.Approver == currentUser)
-                    {
-                        Console.WriteLine("Approver CANNOT EDIT!");
-                    }
-                    else
-                    {
-                        editDocument(currentDoc);
-                    }  
+                    Console.WriteLine("Approver CANNOT EDIT!");
                 }
                 else
                 {
-                    Console.WriteLine("This document cannot be " +
-                        "edited currently - it is under review.");
+                    currentDoc.editDocument();
                 }
 
                 break;
+
             case "2":
                 if(currentDoc.Approver == currentUser)
                 {
@@ -283,7 +277,7 @@ void docMenu(Document currentDoc, User currentUser)
                     User? approver;
                     if (currentDoc.Approver == null)
                     {
-                        Console.WriteLine("Assign approver.");
+                        Console.WriteLine("Assigning approver.");
                         approver = login();
                         if (approver != null)
                         {
@@ -302,10 +296,16 @@ void docMenu(Document currentDoc, User currentUser)
                 }
 
                 break;
+
             case "3":
                 if (currentUser == currentDoc.Approver)
                 {
-                    currentDoc.pushBack(currentUser);
+                    // adding comment for push back
+                    string? comment;
+                    Console.WriteLine("Enter the reason for pushing back: ");
+                    comment = Console.ReadLine();
+
+                    currentDoc.pushBack(currentUser, comment);
                     exit = true;
                 }
                 else
@@ -314,6 +314,7 @@ void docMenu(Document currentDoc, User currentUser)
                 }
                 
                 break;
+
             case "4":
                 if (currentUser == currentDoc.Approver)
                 {
@@ -325,11 +326,16 @@ void docMenu(Document currentDoc, User currentUser)
                 }
 
                 break;
+
             case "5":
                 if (currentUser == currentDoc.Approver)
                 {
-                    currentDoc.reject(currentUser);
-                    currentDoc.Edited = false;
+                    // adding comment for reject
+                    string? comment;
+                    Console.WriteLine("Enter the reason for rejecting: ");
+                    comment = Console.ReadLine();
+
+                    currentDoc.reject(currentUser, comment);
                     exit = true;
                 }
                 else
@@ -338,8 +344,9 @@ void docMenu(Document currentDoc, User currentUser)
                 }
 
                 break;
+
             case "6":
-                Console.WriteLine("add collab");
+                Console.WriteLine("Adding collaborator...");
                 User? collab = login();
                 if(collab != null)
                 {
@@ -358,19 +365,23 @@ void docMenu(Document currentDoc, User currentUser)
                     Console.WriteLine("Unable to find collaborator");
                 }
                 break;
+
             case "7":
                 Console.WriteLine("\nSetting file type...\n");
                 setConversionType(currentDoc);
                 break;
+
             case "8":
                 Console.WriteLine("\nProduce converted file...\n");
                 printConversionDetails(currentDoc);
                 break;
+
             case "9":
                 Console.WriteLine("\nShowing document content...\n");
                 //showDocContent(currentDoc);
                 currentDoc.DisplayDocument();
                 break;
+
             case "10":
                 Console.WriteLine("\nAdding document features...\n");
                 //addDocumentFeatures(currentDoc);
@@ -386,9 +397,11 @@ void docMenu(Document currentDoc, User currentUser)
                     currentDoc = updatedDoc; // Update reference
                 }
                 break;
+
             case "0":
                 exit = true;
                 break;
+
             default:
                 Console.WriteLine("\nInvalid choice! Please enter a number between 1 and 9.\n");
                 break;
@@ -396,14 +409,13 @@ void docMenu(Document currentDoc, User currentUser)
     }
 }
 
-void editDocument(Document currentDoc)
-{
-    Console.WriteLine("Add text to document");
-    string? text = Console.ReadLine();
-    currentDoc.Content += "\n" + text;
+//void editDocument(Document currentDoc)
+//{
+//    Console.WriteLine("Add text to document");
+//    string? text = Console.ReadLine();
+//    currentDoc.Content += "\n" + text;
+//}
 
-    currentDoc.Edited = true;
-}
 //void showDocContent(Document currentDoc)
 //{
 //    Console.WriteLine("Header: " + currentDoc.Header);

@@ -19,12 +19,12 @@ namespace DocumentWorkflowSystem
             Console.WriteLine("This document has already been approved.");
         }
 
-        public void reject(User approver)
+        public void reject(User approver, string? comment)
         {
             Console.WriteLine("This document has already been approved.");
         }
 
-        public void pushBack(User approver)
+        public void pushBack(User approver, string? comment)
         {
             Console.WriteLine("This document has already been approved.");
         }
@@ -32,6 +32,12 @@ namespace DocumentWorkflowSystem
         public void approve(User approver)
         {
             Console.WriteLine("This document has already been approved.");
+        }
+
+        public void editDocument()
+        {
+            Console.WriteLine("This document has already been approved and " +
+                "can't be edited any further.");
         }
     }
 }
