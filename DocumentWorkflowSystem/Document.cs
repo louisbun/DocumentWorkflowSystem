@@ -10,7 +10,7 @@ using static System.Collections.Specialized.BitVector32;
 
 namespace DocumentWorkflowSystem
 {
-    internal class Document : Subject
+    internal abstract class Document : Subject
     {
         private List<Observer> observers;
         private User owner;
@@ -211,6 +211,13 @@ namespace DocumentWorkflowSystem
             Console.WriteLine("Enter the reason for rejecting: ");
             comment = Console.ReadLine();
             return comment;
+        }
+        public virtual void DisplayDocument()
+        {
+            Console.WriteLine("Document: " + title);
+            Console.WriteLine("Header: " + header);
+            Console.WriteLine("Body Content: " + content);
+            Console.WriteLine("Footer: " + footer);
         }
     }
 }

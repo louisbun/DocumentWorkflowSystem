@@ -6,27 +6,21 @@ using System.Threading.Tasks;
 
 namespace DocumentWorkflowSystem
 {
-    
-    internal class EncryptDecorator : ConvertDecorator
+
+    internal class EncryptDecorator : DocumentDecorator
     {
-        private string encrypt;
-        public string Encrypt { get { return encrypt; } set { encrypt = value; } }
+        private string encryptionKey;
+      
 
-        public EncryptDecorator(ConvertBehaviour converter, string encrypt) : base(converter)
+        public EncryptDecorator(Document document, string encryptionKey) : base(document)
         {
-            this.encrypt = encrypt;
+            this.encryptionKey = encryptionKey;
         }
 
-        public override void convert(Document document)
+        public override void DisplayDocument()
         {
-            
-            base.convert(document);
-            EncryptDocument();
-        }
-
-        public void EncryptDocument()
-        {
-            Console.WriteLine($"Encrypting document with key: {encrypt}");
+            base.DisplayDocument();
+            Console.WriteLine($"[Document is encrypted with the key {encryptionKey}]");
         }
     }
 }

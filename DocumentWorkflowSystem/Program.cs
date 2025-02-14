@@ -244,6 +244,7 @@ void docMenu(Document currentDoc, User currentUser)
         Console.WriteLine("7. Set file conversion type ");
         Console.WriteLine("8. Produce converted file ");
         Console.WriteLine("9. Show document Content");
+        Console.WriteLine("10.Add Document Features");
         Console.WriteLine("0. Stop editing");
         Console.WriteLine("===========================");
         Console.Write("Enter your choice: ");
@@ -367,7 +368,23 @@ void docMenu(Document currentDoc, User currentUser)
                 break;
             case "9":
                 Console.WriteLine("\nShowing document content...\n");
-                showDocContent(currentDoc);
+                //showDocContent(currentDoc);
+                currentDoc.DisplayDocument();
+                break;
+            case "10":
+                Console.WriteLine("\nAdding document features...\n");
+                //addDocumentFeatures(currentDoc);
+                Document updatedDoc = addDocumentFeatures(currentDoc); // Capture the returned document
+                if (updatedDoc != null)
+                {
+                    // Replace the document in the list so that changes persist
+                    int index = documents.IndexOf(currentDoc);
+                    if (index != -1)
+                    {
+                        documents[index] = updatedDoc;
+                    }
+                    currentDoc = updatedDoc; // Update reference
+                }
                 break;
             case "0":
                 exit = true;
@@ -387,12 +404,12 @@ void editDocument(Document currentDoc)
 
     currentDoc.Edited = true;
 }
-void showDocContent(Document currentDoc)
-{
-    Console.WriteLine("Header: " + currentDoc.Header);
-    Console.WriteLine("Body Content: " + currentDoc.Content);
-    Console.WriteLine("Footer: " + currentDoc.Footer);
-}
+//void showDocContent(Document currentDoc)
+//{
+//    Console.WriteLine("Header: " + currentDoc.Header);
+//    Console.WriteLine("Body Content: " + currentDoc.Content);
+//    Console.WriteLine("Footer: " + currentDoc.Footer);
+//}
 
 
 
@@ -418,50 +435,6 @@ void setConversionType(Document document)
             Console.WriteLine("\nInvalid choice.\n");
             return;
     }
-
-    string? watermarkChoice;
-    do
-    {
-        Console.Write("Do you want to add a watermark? (Yes/No): ");
-        watermarkChoice = Console.ReadLine()?.ToLower();
-    } while (watermarkChoice != "yes" && watermarkChoice != "no");
-
-    if (watermarkChoice == "yes")
-    {
-        Console.Write("Enter watermark text: ");
-        string? watermarkText = Console.ReadLine();
-        converter = new WatermarkDecorator(converter, watermarkText);
-    }
-
-    // Ask if the user wants to compress the document
-    string? compressChoice;
-    do
-    {
-        Console.Write("\nDo you want to compress the document? (Yes/No) : ");
-        compressChoice = Console.ReadLine()?.ToLower();
-    } while (compressChoice != "yes" && compressChoice != "no");
-
-    if (compressChoice == "yes")
-    {
-        converter = new CompressDecorator(converter);
-    }
-
-    // Ask if the user wants to encrypt the document
-    string? encryptChoice;
-    do
-    {
-        Console.Write("\nDo you want to encrypt the document? (Yes/No) : ");
-        encryptChoice = Console.ReadLine()?.ToLower();
-    } while (encryptChoice != "yes" && encryptChoice != "no");
-
-    if (encryptChoice == "yes")
-    {
-        Console.Write("Enter encryption key: ");
-        string? encryptionKey = Console.ReadLine();
-        converter = new EncryptDecorator(converter, encryptionKey);
-    }
-
-
     BaseConverter baseConverter = choice == 1 ? new WordConverter(converter) : new PDFConverter(converter);
 
     document.SetConverter(baseConverter);
@@ -473,28 +446,58 @@ void setConversionType(Document document)
 // Print conversion details
 void printConversionDetails(Document document)
 {
-    
+
     if (document != null)
     {
         Console.WriteLine($"Performing conversion for document: {document.Title}");
         document.PerformConvert();
-
-        // Check if a watermark is applied
-        if (document.getConverter().getConvertBehaviour() is WatermarkDecorator watermarkDecorator)
-        {
-            Console.WriteLine($"Watermark applied: {watermarkDecorator.WaterMarkText}");
-        }
-        if (document.getConverter().getConvertBehaviour() is CompressDecorator compressdecorator)
-        {
-            Console.WriteLine($"Document compressed.");
-        }
-        if (document.getConverter().getConvertBehaviour() is EncryptDecorator encrypt)
-        {
-            Console.WriteLine($"Document is encrypted with the key : {encrypt.Encrypt}");
-        }
     }
     else
     {
         Console.WriteLine("No conversion type set for this document.");
     }
 }
+
+Document addDocumentFeatures(Document currentDoc)
+{
+    bool exit = false;
+    while (!exit)
+    {
+        Console.WriteLine("\n====== ADD DOCUMENT FEATURES ======");
+        Console.WriteLine("1. Add Watermark");
+        Console.WriteLine("2. Encrypt Document");
+        Console.WriteLine("3. Compress Document");
+        Console.WriteLine("0. Back to Document Menu");
+        Console.WriteLine("===================================");
+        Console.Write("Enter your choice: ");
+        string? input = Console.ReadLine();
+
+        switch (input)
+        {
+            case "1":
+                Console.Write("Enter Watermark Text: ");
+                string? watermarkText = Console.ReadLine();
+                currentDoc = new WatermarkDecorator(currentDoc, watermarkText); 
+                Console.WriteLine("Watermark added.");
+                break;
+            case "2":
+                Console.Write("Enter Encryption Key: ");
+                string? encryptionKey = Console.ReadLine();
+                currentDoc = new EncryptDecorator(currentDoc, encryptionKey);
+                Console.WriteLine("Document encrypted.");
+                break;
+            case "3":
+                currentDoc = new CompressDecorator(currentDoc);
+                Console.WriteLine("Document compressed.");
+                break;
+            case "0":
+                exit = true;
+                break;
+            default:
+                Console.WriteLine("Invalid choice! Please enter a valid option.");
+                break;
+        }
+    }
+    return currentDoc;
+}
+
