@@ -19,16 +19,10 @@ namespace DocumentWorkflowSystem
             Console.WriteLine("This document is already under review.");
         }
 
-        public void reject(User approver)
+        public void reject(User approver, string? comment)
         {
             // unassign the approver 
             myDocument.unassignApprover();
-
-            //unlock Document so that it can be edited
-            myDocument.unlockDocument();
-
-            // add reason
-            string? comment = myDocument.addRejectedReason();
 
             // change state to RejectedState
             Console.WriteLine($"Rejecting document [{myDocument.Title}] - Reason: " +  comment);
@@ -39,13 +33,8 @@ namespace DocumentWorkflowSystem
             myDocument.notifyObserver(approver,"reject");
         }
 
-        public void pushBack(User approver)
+        public void pushBack(User approver, string? comment)
         {
-            // add comment
-            string? comment = myDocument.addPushBackReason();
-
-            // unlockDocument so that it can be edited
-            myDocument.unlockDocument();
 
             // change state back to DraftState
             Console.WriteLine($"Pushing document [{myDocument.Title}] back" + " - Reason: " + comment);
@@ -58,12 +47,19 @@ namespace DocumentWorkflowSystem
         public void approve(User approver)
         {
             // change state to ApprovedState
-            Console.WriteLine($"Approving document [{myDocument.Title}]");
+            Console.WriteLine($"Approving document [{myDocument.Title}]...");
             myDocument.setState(myDocument.ApprovedState);
 
             // notify all observers that document is approved
             myDocument.notifyObserver(approver, "approve");
 
+        }
+
+        public void editDocument()
+        {
+            Console.WriteLine("This document cannot be " +
+                        "edited currently - it is under review.");
+            Console.WriteLine();
         }
     }
 }

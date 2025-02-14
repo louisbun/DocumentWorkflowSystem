@@ -22,8 +22,7 @@ namespace DocumentWorkflowSystem
         private string? header;
         private string? footer;
 
-        private bool canEdit;
-        private bool edited;
+
         // references to DocumentState (State)
         private DocumentState draftState;
         private DocumentState underReviewState;
@@ -33,7 +32,7 @@ namespace DocumentWorkflowSystem
 
 
         // yunze stuff (strategy)
-        private BaseConverter converter;
+        private BaseConverter? converter;
 
         public User Owner { get { return owner; } }
         public string? Title { get { return title; } }
@@ -48,7 +47,7 @@ namespace DocumentWorkflowSystem
             converter = newConverter;
         }
 
-        public BaseConverter getConverter()
+        public BaseConverter? getConverter()
         {
             return this.converter;
         }
@@ -86,8 +85,6 @@ namespace DocumentWorkflowSystem
             this.state = state;
         }
 
-        public bool CanEdit { get { return canEdit; } set { canEdit = value; } }
-        public bool Edited { get { return edited; } set { edited = value; } }
 
         // constructor
         public Document(User owner, string title)
@@ -107,8 +104,6 @@ namespace DocumentWorkflowSystem
             approvedState = new ApprovedState(this);
             state = draftState;
 
-            canEdit = true;
-            edited = false;
         }
 
         public void registerObserver(Observer o)
@@ -148,28 +143,22 @@ namespace DocumentWorkflowSystem
             state.submit(approver);
         }
 
-        public void pushBack(User approver)
+        public void pushBack(User approver, string? comment)
         {
-            state.pushBack(approver);
+            state.pushBack(approver, comment);
         }
 
-        public void reject(User approver)
+        public void reject(User approver, string? comment)
         {
-            state.reject(approver);
+            state.reject(approver, comment);
         }
         public void approve(User approver)
         {
             state.approve(approver);
         }
-
-        public void lockDocument()
+        public void editDocument()
         {
-            canEdit = false;
-        }
-
-        public void unlockDocument()
-        {
-            canEdit = true;
+            state.editDocument();
         }
 
         public bool assignApprover(User approver)
@@ -197,21 +186,6 @@ namespace DocumentWorkflowSystem
             approver = null;
         }
 
-        public string? addPushBackReason()
-        {
-            string? comment;
-            Console.WriteLine("Enter the reason for pushing back: ");
-            comment = Console.ReadLine();
-            return comment;
-        }
-
-        public string? addRejectedReason()
-        {
-            string? comment;
-            Console.WriteLine("Enter the reason for rejecting: ");
-            comment = Console.ReadLine();
-            return comment;
-        }
         public virtual void DisplayDocument()
         {
             Console.WriteLine("Document: " + title);
