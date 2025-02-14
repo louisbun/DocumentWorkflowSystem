@@ -10,7 +10,7 @@ namespace DocumentWorkflowSystem
     internal abstract class DocumentDecorator : Document
     {
         
-        protected Document document; 
+        private Document document; 
 
         public DocumentDecorator(Document document) : base(document.Owner, document.Title)
         {

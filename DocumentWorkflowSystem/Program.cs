@@ -418,7 +418,7 @@ void setConversionType(Document document)
     Console.WriteLine("Choose conversion format:");
     Console.WriteLine("1. Word");
     Console.WriteLine("2. PDF");
-    Console.Write("Enter a choice: ");
+    Console.Write("Enter a choice ( 1 or 2 ): ");
     int choice = Convert.ToInt32(Console.ReadLine());
 
     ConvertBehaviour? converter = null;
