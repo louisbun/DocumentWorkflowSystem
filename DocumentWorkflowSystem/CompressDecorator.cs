@@ -6,26 +6,16 @@ using System.Threading.Tasks;
 
 namespace DocumentWorkflowSystem
 {
-    
-    internal class CompressDecorator : ConvertDecorator
+
+    internal class CompressDecorator : DocumentDecorator
     {
         
+        public CompressDecorator(Document document) : base(document) { }
 
-        public CompressDecorator(ConvertBehaviour converter) : base(converter)
+        public override void DisplayDocument()
         {
-            
-        }
-
-        public override void convert(Document document)
-        {
-            
-            base.convert(document);
-            CompressDocument();
-        }
-
-        public void CompressDocument()
-        {
-            Console.WriteLine("Compressing document before conversion...");
+            base.DisplayDocument();
+            Console.WriteLine("[Document is compressed]");
         }
     }
 

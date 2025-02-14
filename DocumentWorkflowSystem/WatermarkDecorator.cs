@@ -6,26 +6,21 @@ using System.Threading.Tasks;
 
 namespace DocumentWorkflowSystem
 {
-    
-    internal class WatermarkDecorator : ConvertDecorator
+
+    internal class WatermarkDecorator : DocumentDecorator
     {
         private string watermarkText;
-        public string WaterMarkText { get { return watermarkText; } set { watermarkText = value; } }
-        public WatermarkDecorator(ConvertBehaviour converter, string watermark) : base(converter)
+        
+
+        public WatermarkDecorator(Document document, string watermarkText) : base(document)
         {
-            this.watermarkText = watermark;
+            this.watermarkText = watermarkText;
         }
 
-        public override void convert(Document document)
+        public override void DisplayDocument()
         {
-            
-            base.convert(document);
-            AddWatermark();
-        }
-
-        public void AddWatermark()
-        {
-            Console.WriteLine($"Adding watermark: {watermarkText}");
+            base.DisplayDocument();
+            Console.WriteLine($"[Watermark: {watermarkText}]");
         }
     }
 
