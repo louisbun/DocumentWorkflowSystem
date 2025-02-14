@@ -61,5 +61,10 @@ namespace DocumentWorkflowSystem
                         "edited currently - it is under review.");
             Console.WriteLine();
         }
+
+        public void addCollaborator()
+        {
+
+        }
     }
 }

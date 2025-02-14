@@ -12,6 +12,9 @@ namespace DocumentWorkflowSystem
         void reject(User approver, string? comment);
         void pushBack(User approver, string? comment);
         void approve(User approver);
+
         void editDocument();
+
+        void addCollaborator();
     }
 }
