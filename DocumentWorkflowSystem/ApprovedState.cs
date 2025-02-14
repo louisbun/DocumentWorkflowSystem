@@ -39,5 +39,11 @@ namespace DocumentWorkflowSystem
             Console.WriteLine("This document has already been approved and " +
                 "can't be edited any further.");
         }
+
+        public void addCollaborator()
+        {
+            Console.WriteLine("This document has already been approved. " +
+                "Unable to add anymore collaborators.");
+        }
     }
 }

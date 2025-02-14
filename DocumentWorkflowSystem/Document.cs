@@ -160,6 +160,10 @@ namespace DocumentWorkflowSystem
         {
             state.editDocument();
         }
+        public void addCollaborator()
+        {
+            state.addCollaborator();
+        }
 
         public bool assignApprover(User approver)
         {
@@ -185,6 +189,7 @@ namespace DocumentWorkflowSystem
         {
             approver = null;
         }
+
 
         public virtual void DisplayDocument()
         {

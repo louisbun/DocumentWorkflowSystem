@@ -60,5 +60,10 @@ namespace DocumentWorkflowSystem
             string? text = Console.ReadLine();
             myDocument.Content += "\n" + text;
         }
+
+        public void addCollaborator()
+        {
+
+        }
     }
 }

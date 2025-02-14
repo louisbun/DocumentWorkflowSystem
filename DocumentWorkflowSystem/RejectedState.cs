@@ -47,7 +47,7 @@ namespace DocumentWorkflowSystem
             //    Console.WriteLine();
             //}
 
-            Console.WriteLine("Unable to submit document for review while it is rejected. " +
+            Console.WriteLine("Unable to submit for review while document is rejected. " +
                 "Please edit it first.");
         }
 
@@ -74,6 +74,12 @@ namespace DocumentWorkflowSystem
 
             // change state to DraftState after document has been edited
             myDocument.setState(myDocument.DraftState);
+        }
+
+        public void addCollaborator()
+        {
+            Console.WriteLine("Unable to add collaborator while document is rejected. " +
+                "Please edit it first.");
         }
     }
 }
