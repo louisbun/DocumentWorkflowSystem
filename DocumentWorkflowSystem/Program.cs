@@ -179,11 +179,27 @@ void docTypeMenu(User currentUser)
     bool exit = false;
     while (!exit)
     {
-        Console.WriteLine("Enter title for your document: ");
-        string? title = Console.ReadLine();
 
         Console.WriteLine("Enter document type: ");
         string? input = Console.ReadLine();
+
+        string? title;
+        while (true)
+        {
+            Console.WriteLine("Enter title for your document: ");
+            title = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                Console.WriteLine("Title of document cannot be empty. Please enter a valid title.");
+                Console.WriteLine();
+            }
+            else
+            {
+                break;
+            }
+        }
+
         switch (input)
         {
             case "1":
