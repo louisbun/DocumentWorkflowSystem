@@ -17,7 +17,7 @@ namespace DocumentWorkflowSystem
         private List<Document> documents;
 
         public string Name { get { return name; } set { name = value; } }
-        public List<Document> Document { get { return documents;} }
+        public List<Document> Documents { get { return documents;} }
 
         public User(string name)
 

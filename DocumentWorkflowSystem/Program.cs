@@ -215,7 +215,7 @@ Document getDoc(User currentUser)
     {
         if (doc.Title == name)
         {
-            if (currentUser.Document.Contains(doc))
+            if (currentUser.Documents.Contains(doc))
             {
                 return doc;
             }
