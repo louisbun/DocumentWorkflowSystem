@@ -143,18 +143,18 @@ namespace DocumentWorkflowSystem
             state.submit(approver);
         }
 
-        public void pushBack(User approver, string? comment)
+        public void pushBack(User users, string? comment)
         {
-            state.pushBack(approver, comment);
+            state.pushBack(users, comment);
         }
 
-        public void reject(User approver, string? comment)
+        public void reject(User users, string? comment)
         {
-            state.reject(approver, comment);
+            state.reject(users, comment);
         }
-        public void approve(User approver)
+        public void approve(User users)
         {
-            state.approve(approver);
+            state.approve(users);
         }
         public void editDocument()
         {
