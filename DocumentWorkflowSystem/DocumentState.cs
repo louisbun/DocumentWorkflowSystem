@@ -15,6 +15,6 @@ namespace DocumentWorkflowSystem
 
         void editDocument();
 
-        void addCollaborator();
+        void addCollaborator(User collaborator);
     }
 }

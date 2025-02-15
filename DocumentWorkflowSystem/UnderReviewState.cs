@@ -62,9 +62,31 @@ namespace DocumentWorkflowSystem
             Console.WriteLine();
         }
 
-        public void addCollaborator()
+        public void addCollaborator(User collaborator)
         {
+            if (!collaborator.Documents.Contains(myDocument))
+            {
+                //Adds document to List of document that user is a part of (Owner/Collab)
+                collaborator.Documents.Add(myDocument);
+                //Register user as observer of document
+                myDocument.registerObserver(collaborator);
 
+            }
+            else
+            {
+                if (myDocument.Owner == collaborator)
+                {
+                    Console.WriteLine($"{myDocument.Owner.Name} is the OWNER of this document");
+                }
+                else if (myDocument.Approver == collaborator)
+                {
+                    Console.WriteLine($"{myDocument.Approver.Name} is the APPROVER of this document");
+                }
+                else
+                {
+                    Console.WriteLine($"Already a collaborator this document");
+                }
+            }
         }
     }
 }

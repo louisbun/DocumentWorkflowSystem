@@ -283,6 +283,7 @@ void docMenu(Document currentDoc, User currentUser)
                         {
                             currentDoc.submit(approver);
                             //approver.addDocument(currentDoc); // adding documents to the approver
+
                         }
                         else
                         {
@@ -306,7 +307,7 @@ void docMenu(Document currentDoc, User currentUser)
                     comment = Console.ReadLine();
 
                     currentDoc.pushBack(currentUser, comment);
-                    exit = true;
+                    //exit = true;
                 }
                 else
                 {
@@ -347,13 +348,15 @@ void docMenu(Document currentDoc, User currentUser)
 
             case "6":
                 Console.WriteLine("Adding collaborator...");
-                User? collab = login();
-                if(collab != null)
+                User? collaborator = login();
+                if(collaborator != null)
                 {
                     if(currentDoc.Owner == currentUser)
                     {
-                        collab.addDocument(currentDoc);
+                        //collaborator.addDocument(currentDoc);
                         //currentDoc.registerObserver(collab);
+
+                        currentDoc.addCollaborator(collaborator);
                     }
                     else
                     {

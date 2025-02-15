@@ -76,7 +76,7 @@ namespace DocumentWorkflowSystem
             myDocument.setState(myDocument.DraftState);
         }
 
-        public void addCollaborator()
+        public void addCollaborator(User collaborator)
         {
             Console.WriteLine("Unable to add collaborator while document is rejected. " +
                 "Please edit it first.");

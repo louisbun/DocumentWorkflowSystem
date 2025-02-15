@@ -60,30 +60,30 @@ namespace DocumentWorkflowSystem
                 }
             }
         }
-        public void addDocument(Document doc)
-        {
-            if (!documents.Contains(doc))
-            {
-                //Adds document to List of document that user is a part of (Owner/Collab)
-                documents.Add(doc);
-                //Register user as observer of document
-                doc.registerObserver(this);
+        //public void addDocument(Document doc)
+        //{
+        //    if (!documents.Contains(doc))
+        //    {
+        //        //Adds document to List of document that user is a part of (Owner/Collab)
+        //        documents.Add(doc);
+        //        //Register user as observer of document
+        //        doc.registerObserver(this);
 
-            }
-            else
-            {
-                if(doc.Owner == this)
-                {
-                    Console.WriteLine($"{doc.Owner.Name} is the OWNER of this document");
-                }else if(doc.Approver == this){
-                    Console.WriteLine($"{doc.Approver.Name} is the APPROVER of this document");
-                }
-                else
-                {
-                    Console.WriteLine($"Already a collaborator this document");
-                }
-            }
-        }
+        //    }
+        //    else
+        //    {
+        //        if(doc.Owner == this)
+        //        {
+        //            Console.WriteLine($"{doc.Owner.Name} is the OWNER of this document");
+        //        }else if(doc.Approver == this){
+        //            Console.WriteLine($"{doc.Approver.Name} is the APPROVER of this document");
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine($"Already a collaborator this document");
+        //        }
+        //    }
+        //}
         public void removeDocument(Document doc)
         {
             documents.Remove(doc);
