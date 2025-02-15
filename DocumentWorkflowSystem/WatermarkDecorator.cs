@@ -9,10 +9,10 @@ namespace DocumentWorkflowSystem
 
     internal class WatermarkDecorator : DocumentDecorator
     {
-        private string watermarkText;
+        private string? watermarkText;
         
 
-        public WatermarkDecorator(Document document, string watermarkText) : base(document)
+        public WatermarkDecorator(Document document, string? watermarkText) : base(document)
         {
             this.watermarkText = watermarkText;
         }

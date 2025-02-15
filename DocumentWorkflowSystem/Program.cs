@@ -99,8 +99,22 @@ void mainMenu(){
 //Create new Users
 void createUser()
 {
-    Console.Write("Enter name : ");
-    string? name = Console.ReadLine();
+    string? name;
+    while (true)
+    {
+        Console.WriteLine("Enter name: ");
+        name = Console.ReadLine();
+
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            Console.WriteLine("Name of user cannot be left empty. Please try again.");
+            Console.WriteLine();
+        }
+        else
+        {
+            break;
+        }
+    }
     User user = new User(name);
     users.Add(user);
 }

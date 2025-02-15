@@ -9,10 +9,10 @@ namespace DocumentWorkflowSystem
 
     internal class EncryptDecorator : DocumentDecorator
     {
-        private string encryptionKey;
+        private string? encryptionKey;
       
 
-        public EncryptDecorator(Document document, string encryptionKey) : base(document)
+        public EncryptDecorator(Document document, string? encryptionKey) : base(document)
         {
             this.encryptionKey = encryptionKey;
         }
