@@ -39,17 +39,17 @@ namespace DocumentWorkflowSystem
 
         }
 
-        public void reject(User approver, string? comment)
+        public void reject(User users, string? comment)
         {
             Console.WriteLine("This document can't be rejected during draft.");
         }
 
-        public void pushBack(User approver, string? comment)
+        public void pushBack(User users, string? comment)
         {
             Console.WriteLine("This document cannot be push back during draft.");
         }
 
-        public void approve(User approver)
+        public void approve(User users)
         {
             Console.WriteLine("This document cannot be approved during draft.");
         }

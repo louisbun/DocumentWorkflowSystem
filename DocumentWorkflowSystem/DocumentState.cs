@@ -9,9 +9,9 @@ namespace DocumentWorkflowSystem
     internal interface DocumentState
     {
         void submit(User approver);
-        void reject(User approver, string? comment);
-        void pushBack(User approver, string? comment);
-        void approve(User approver);
+        void reject(User users, string? comment);
+        void pushBack(User users, string? comment);
+        void approve(User users);
 
         void editDocument();
 

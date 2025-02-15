@@ -51,17 +51,17 @@ namespace DocumentWorkflowSystem
                 "Please edit it first.");
         }
 
-        public void reject(User approver, string? comment)
+        public void reject(User users, string? comment)
         {
             Console.WriteLine("This document has already been rejected.");
         }
 
-        public void pushBack(User approver, string? comment)
+        public void pushBack(User users, string? comment)
         {
             Console.WriteLine("This document can't be push back - it has already been rejected.");
         }
 
-        public void approve(User approver)
+        public void approve(User users)
         {
             Console.WriteLine("This document can't be approved - it has already been rejected.");
         }
