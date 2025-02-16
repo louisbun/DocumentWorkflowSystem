@@ -427,6 +427,15 @@ void docMenu(Document currentDoc, User currentUser)
                     {
                         documents[index] = updatedDoc;
                     }
+                    foreach(User u in currentDoc.Observers)
+                    {
+                        int userDocIndex = u.Documents.IndexOf(currentDoc);
+                        if (userDocIndex != -1)
+                        {
+                            u.Documents[userDocIndex] = updatedDoc;
+                        }
+                    }
+
                     currentDoc = updatedDoc; // Update reference
                 }
                 break;
