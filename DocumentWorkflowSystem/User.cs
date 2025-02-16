@@ -124,12 +124,9 @@ namespace DocumentWorkflowSystem
                         Console.WriteLine($"{Name} has been notified: {Name} ADDED as a Collaborator to {doc.Title}");
                     }
                 }
-                else
+                else if (action == "remove")
                 {
-                    if(doc.Approver == this)
-                    {
-                        Console.WriteLine($"{Name} has been notified: {Name} left {doc.Title}");
-                    }
+                    Console.WriteLine($"{Name} has been notified: Approver {Name} has been removed from {doc.Title}");
                 }
             }
         }

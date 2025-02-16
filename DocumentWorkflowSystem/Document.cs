@@ -40,6 +40,7 @@ namespace DocumentWorkflowSystem
         public string? Header { get { return header; } set { header = value; } }
         public string? Footer { get { return footer; } set { footer = value; } }
         public User? Approver { get { return approver; } set { approver = value; } }
+        public List<Observer> Observers { get { return observers; } }
 
         // For conversion
         public void SetConverter(BaseConverter newConverter)
@@ -115,7 +116,7 @@ namespace DocumentWorkflowSystem
         public void removeObserver(Observer o)
         {
             observers.Remove(o);
-            notifyObserver(o, "remove");
+            notifyObserver(o, "remove"); 
         }
 
         public void notifyObserver(Observer o, string action)
